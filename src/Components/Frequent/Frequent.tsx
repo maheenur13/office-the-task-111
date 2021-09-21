@@ -83,18 +83,16 @@ const frequentListData = [
 
 const Frequent: FC = () => {
     return (
-        <FrequentContainer className="">
-            <Title className="my-5">Frequently Asked Questions</Title>
+        <FrequentContainer className="py-3" >
+            <Title className="mb-5">Frequently Asked Questions</Title>
             <Row className="justify-content-around">
                 {
                     frequentData?.map((data) => {
 
                         return (
-                            <Col className="" lg={4}>
-                                <div className="">
+                            <Col lg={4}>                               
                                     <SmallTitle className="mb-3">{data?.title}</SmallTitle>
-                                    <Description>{data?.description}</Description>
-                                </div>
+                                    <Description>{data?.description}</Description>                               
                             </Col>
                         )
                     })
@@ -107,8 +105,7 @@ const Frequent: FC = () => {
                         const extraInfos = data?.extraInfo[0];
                         const extraLists = extraInfos?.lists;
                         return (
-                            <Col lg={4}>
-                                
+                            <Col lg={4}>                               
                                     <SmallTitle className="mb-3">{data?.title}</SmallTitle>
                                     <Description>{data?.description}</Description>
                                     {
@@ -152,7 +149,7 @@ const SmallTitle = styled.h1`
     font-size: 25px;
 `
 const Description = styled.p`
-/* margin:0 0 2 0; */
+
 
 `
 const ExtraSmallTitle = styled.h1`
