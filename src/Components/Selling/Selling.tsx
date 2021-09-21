@@ -70,14 +70,14 @@ const Selling: FC = () => {
                     
                 </Row>
             </Row>
-            <div className="py-4 px-5">
+            <div className="py-4 px-5 ">
                 <SellingHeaderText className="my-5">How To Start Selling</SellingHeaderText>
                 <Row>
                     {
                         startSellingData?.map((data) => {
                             return (
-                                <Col className="" lg={3} md={6} >
-                                    <SellingBox className="pt-5 pl-4 pr-4 ">
+                                <Col  lg={3} md={6}>
+                                    <SellingBox className="pt-5 pl-4 pr-4 my-3">
                                         <IconSvg className="">{data.icon}</IconSvg>
                                         <h6 className="my-2">{data?.title}</h6>
                                         <SellParaText  className="pb-2">{data?.details}</SellParaText>

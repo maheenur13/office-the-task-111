@@ -21,7 +21,7 @@ const CreateStore: FC = () => {
                         </div>
                     </Col>
                     <Col lg={9} >
-                        <ButtonContainer className="">
+                        <ButtonContainer >
                             <Button  variant="dark" >Open Your Free Store Now</Button>
                             <Button >Login to Seller Center</Button>
                         </ButtonContainer>
@@ -55,6 +55,6 @@ font-size:.8rem;
 const ButtonContainer = styled.div`
    height:100%;
    display: flex;
-   justify-content: end;
+   justify-content: flex-end;
    align-items: center;
 `

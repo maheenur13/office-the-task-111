@@ -90,9 +90,11 @@ const Frequent: FC = () => {
                     frequentData?.map((data) => {
 
                         return (
-                            <Col lg={4}>                               
+                            <Col lg={4}> 
+                                                         
                                     <SmallTitle className="mb-3">{data?.title}</SmallTitle>
-                                    <Description>{data?.description}</Description>                               
+                                    <Description className="pr-5">{data?.description}</Description>                               
+                                    
                             </Col>
                         )
                     })

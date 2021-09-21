@@ -1,16 +1,1 @@
-$sell-backgroundColor:#05AD5D;
 
-@mixin flex-center {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-}
-
-.sell-drop-section{
-    background:$sell-backgroundColor ;
-    border-radius: 35px  35px 0px 0px;
-    
-}
-.button-box{
-    @include flex-center;
-}
