@@ -30,8 +30,8 @@ const Tools: FC = () => {
                     return (
                         <Col lg={4}>
                             <div className="p-5 tools-box p-md-3 ">
-                                <Title className="mb-3 text-left " variant="black" size="md" >{data.title}</Title>
-                                <Description>{data.description}</Description>
+                                <Title className="mb-2 text-left md-title" variant="black" size="md" >{data.title}</Title>
+                                <Description className="description mb-3">{data.description}</Description>
                             </div>
                         </Col>
                     )

@@ -63,7 +63,7 @@ const Selling: FC = () => {
                             return (
                                 <Col lg={6} xl={3} className="">
                                     <div className=" mr-2 mb-3">
-                                        <Title className="text-left  pr-5" size='md'>{texts?.heading}</Title>
+                                        <Title className="text-left md-title" size='md'>{texts?.heading}</Title>
                                         <SellParaText className="">{texts?.details}</SellParaText>
                                     </div>
                                 </Col>

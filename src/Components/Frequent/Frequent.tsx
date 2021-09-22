@@ -84,17 +84,17 @@ const frequentListData = [
 
 const Frequent: FC = () => {
     return (
-        <FrequentContainer className="py-4" >
+        <FrequentContainer className="py-lg-5" >
             <Title className="title mb-5 font-weight-normal" variant="black">Frequently Asked Questions</Title>
             <Row className="justify-content-around">
                 {
                     frequentData?.map((data) => {
 
                         return (
-                            <Col lg={4}> 
+                            <Col lg={4} > 
                                                          
-                                    <Title className="mb-3 text-left " variant="black" size="md">{data?.title}</Title>
-                                    <Description className="pr-5 mb-md-3">{data?.description}</Description>                               
+                                    <Title className="mb-3 text-left md-title" variant="black" size="md">{data?.title}</Title>
+                                    <Description className="px-5 px-sm-2 px-md-0 px-lg-0 px-xl-0 description mb-md-3">{data?.description}</Description>                               
                                     
                             </Col>
                         )
@@ -109,24 +109,24 @@ const Frequent: FC = () => {
                         const extraLists = extraInfos?.lists;
                         return (
                             <Col lg={4}>                               
-                                    <Title className="mb-3 mt-md-3 text-left" variant="black" size="md">{data?.title}</Title>
-                                    <Description>{data?.description}</Description>
+                                    <Title className="mt-3  text-left md-title" variant="black" size="md">{data?.title}</Title>
+                                    <Description className="px-5 px-sm-2 px-md-2 px-lg-2 px-xl-2 description">{data?.description}</Description>
                                     {
                                         listData?.map((data) => {
                                             return (
-                                                <Description>{data?.list}</Description>
+                                                <Description className="px-5 px-md-0 px-lg-0 px-xl-0">{data?.list}</Description>
                                             )
                                         })
                                     }
-                                    <ExtraSmallTitle className="mt-4 mt-sm-3">{extraInfos?.title}</ExtraSmallTitle>
+                                    <ExtraSmallTitle className=" px-5 px-md-0 px-lg-0 px-xl-0 mt-3">{extraInfos?.title}</ExtraSmallTitle>
                                     {
                                         extraLists.map((data) =>{
                                             return (
-                                                <Description>{data?.list}</Description>
+                                                <Description className="px-5 px-md-0 px-lg-0 px-xl-0">{data?.list}</Description>
                                             )
                                         })
                                     }
-                                    <Description>{extraInfos?.description}</Description>
+                                    <Description className="px-5 px-md-0 px-lg-0 px-xl-0" >{extraInfos?.description}</Description>
                                 
                             </Col>
                         )
@@ -142,10 +142,6 @@ export default Frequent;
 
 const FrequentContainer = styled.div`
 
-`
-
-const SmallTitle = styled.h1`
-    font-size: 25px;
 `
 const Description = styled.p`
 

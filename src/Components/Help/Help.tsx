@@ -1,20 +1,20 @@
-import {FC} from 'react';
+import { FC } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import styled from 'styled-components';
 import { Button, Title } from '../atoms';
 
 const helpSectionData = [
     {
-        title:'Need more help? Contact us for any help',
-        email:'sellersupport@zdrop.com.bd',
-        phone:'09638121212',
-        date:'Monday- Friday: 9AM- 6PM',
-        adress:'Bashati Dream, Plot- 03, Road- 20, Level-05 (C/5), Gulshan- 1, Dhaka- 1212, Bangladesh'
+        title: 'Need more help? Contact us for any help',
+        email: 'sellersupport@zdrop.com.bd',
+        phone: '09638121212',
+        date: 'Monday- Friday: 9AM- 6PM',
+        adress: 'Bashati Dream, Plot- 03, Road- 20, Level-05 (C/5), Gulshan- 1, Dhaka- 1212, Bangladesh'
     },
 ]
 
 
-const Help:FC = () => {
+const Help: FC = () => {
     return (
         <HelpContainer>
             <div className="py-5 px-3 px-sm-5 px-md-5">
@@ -24,19 +24,21 @@ const Help:FC = () => {
                             helpSectionData?.map((data) => {
                                 return (
                                     <div>
-                                        <Title className="mb-3 text-left" size='md'>{data?.title}</Title>
-                                        <Description>Mail: {data?.email}</Description>
-                                        <Description>Call: {data?.phone}</Description>
-                                        <Description>{data?.date}</Description>
-                                        <Description className="mt-3">{data?.adress}</Description>
+                                        <Title className="mb-3 text-left md-title" size='md'>{data?.title}</Title>
+                                        <div className="px-4 px-md-0 px-lg-0 px-xl-0">
+                                            <Description>Mail: {data?.email}</Description>
+                                            <Description>Call: {data?.phone}</Description>
+                                            <Description>{data?.date}</Description>
+                                            <Description className="mt-3">{data?.adress}</Description>
+                                        </div>
                                     </div>
                                 )
                             })
                         }
                     </Col>
-                    <Col md={12} lg={4} className="">
-                        <div className="button-box pt-md-5 pt-sm-4">
-                        <Button className="mx-auto"variant="white">Call Seller Support Center</Button>
+                    <Col md={12} lg={4} className=" mt-3 mt-md-3 mt-lg-0 mt-xl-0">
+                        <div className="button-box">
+                            <Button className="mx-md-auto mx-sm-auto mx-auto mx-lg-0" variant="white">Call Seller Support Center</Button>
                         </div>
                     </Col>
 

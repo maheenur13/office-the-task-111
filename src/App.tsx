@@ -10,7 +10,7 @@ import Tools from "./Components/Tools/Tools";
 function App() {
   return (
     <AppContainer>
-      <Container className="py-5">
+      <Container className="py-2">
         <SellOnZDrop/>
         <Selling/>
         <Tools/>
@@ -26,9 +26,16 @@ export default App;
 
 const AppContainer =styled.div`
 
-@media only screen and (max-width: 421px){
+@media only screen and (max-width: 425px){
     .title{
              font-size: 1.8rem;
+         }
+         .md-title{
+           font-size: 1.2rem;
+           text-align: center!important;
+         }
+         .description{
+           text-align: justify;
          }
      }
      @media only screen and (max-width:349px){

@@ -16,7 +16,7 @@ const CreateStore: FC = () => {
                 <Row>
                     <Col xl={3} lg={4}>
                         <div className="">
-                            <Title className="mb-4 text-lg-left " size="md">{storeData?.title}</Title>
+                            <Title className="mb-4 text-lg-left md-title" size="md">{storeData?.title}</Title>
                             <Description className="px-sm-5 px-md-0">{storeData?.description}</Description>
                         </div>
                     </Col>
