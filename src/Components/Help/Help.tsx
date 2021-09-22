@@ -1,7 +1,7 @@
 import {FC} from 'react';
 import { Col, Row } from 'react-bootstrap';
 import styled from 'styled-components';
-import { Button } from '../atoms';
+import { Button, Title } from '../atoms';
 
 const helpSectionData = [
     {
@@ -17,26 +17,26 @@ const helpSectionData = [
 const Help:FC = () => {
     return (
         <HelpContainer>
-            <div className="py-5 px-3">
+            <div className="py-5 px-3 px-sm-5 px-md-5">
                 <Row className="justify-content-around">
-                    <Col lg={5}>
+                    <Col md={12} lg={5}>
                         {
                             helpSectionData?.map((data) => {
                                 return (
                                     <div>
-                                        <Title className="mb-4">{data?.title}</Title>
+                                        <Title className="mb-3 text-left" size='md'>{data?.title}</Title>
                                         <Description>Mail: {data?.email}</Description>
                                         <Description>Call: {data?.phone}</Description>
                                         <Description>{data?.date}</Description>
-                                        <Description className="mt-4">{data?.adress}</Description>
+                                        <Description className="mt-3">{data?.adress}</Description>
                                     </div>
                                 )
                             })
                         }
                     </Col>
-                    <Col  lg={4}>
-                        <div className="button-box">
-                        <Button variant="white">Call Seller Support Center</Button>
+                    <Col md={12} lg={4} className="">
+                        <div className="button-box pt-md-5 pt-sm-4">
+                        <Button className="mx-auto"variant="white">Call Seller Support Center</Button>
                         </div>
                     </Col>
 
@@ -48,9 +48,7 @@ const Help:FC = () => {
 
 export default Help;
 
-const Title = styled.h1`
-    font-size:25px;
-`
+
 
 const Description = styled.p`
 

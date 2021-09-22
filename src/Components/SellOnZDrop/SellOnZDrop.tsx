@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
-import { Button } from '../atoms';
-import './SellOnZDrop.scss'
+import { Button, Title } from '../atoms';
 
 const texts = [
     {
@@ -23,8 +22,6 @@ const texts = [
     },
 ]
 const HeaderText = styled.h1`
-    color:#FFFFFF;
-    text-align: left;
     font: normal normal normal 45px/60px Segoe UI;
     
     `
@@ -38,15 +35,14 @@ const CheckIcon = styled.svg`
         display: inline-block;
     `
 
-
 const SellOnZDrop: FC = () => {
     return (
         <SellSection className="mt-4 py-4 px-5">
             <Row>
-
-                <Col lg={6} className="" >
-                    <div className="px-5">
-                        <HeaderText className="mb-3">Sell on zDrop</HeaderText>
+                <Col xs={12} md={12} lg={6} xl={6} >
+                    <div className="px-5  d-md-flex flex-md-column d-md-flex justify-content-md-center align-items-md-center d-lg-block d-xl-block">
+                        <Title className="text-lg-left text-xl-left mb-3 font-weight-normal text-center">Sell on zDrop</Title>
+                        <div className="my-md-3">
                         {
 
                             texts.map((s) => {
@@ -56,13 +52,14 @@ const SellOnZDrop: FC = () => {
                                 )
                             })
                         }
+                        </div>
                     </div>
                 </Col>
-                <Col lg={6}>
-                    <div className="button-box">
+                <Col md={12} lg={6} xl={6}>
+                    <Row className="button-box py-3 ">
                         <Button variant='black'>Open Your Free Store Now</Button>
                         <Button variant='white'>Log in to Seller Center</Button>
-                    </div>
+                    </Row>
                 </Col>
             </Row>
         </SellSection>
@@ -77,7 +74,7 @@ const SellSection = styled.div`
  .button-box{
      height:100%;
      display:flex;
-     justify-content:flex-end;
+     justify-content:center;
      align-items:center;
  }
 

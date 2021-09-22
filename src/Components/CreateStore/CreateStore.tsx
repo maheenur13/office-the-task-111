@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import styled from 'styled-components';
-import { Button } from '../atoms';
+import { Button, Title } from '../atoms';
 
 const storeData =
 {
@@ -12,19 +12,19 @@ const storeData =
 const CreateStore: FC = () => {
     return (
         <StoreContainer className="mt-3 mb-5">
-            <div className=" p-5 px-5 ">
+            <div className="p-5 px-5">
                 <Row>
-                    <Col lg={3}>
+                    <Col xl={3} lg={4}>
                         <div className="ml-5">
-                        <Title className="mb-4">{storeData?.title}</Title>
-                        <Description>{storeData?.description}</Description>
+                            <Title className="mb-4 text-lg-left " size="md">{storeData?.title}</Title>
+                            <Description className="px-sm-5 px-md-0">{storeData?.description}</Description>
                         </div>
                     </Col>
-                    <Col lg={9} >
-                        <ButtonContainer >
-                            <Button  variant="dark" >Open Your Free Store Now</Button>
-                            <Button >Login to Seller Center</Button>
-                        </ButtonContainer>
+                    <Col xl={9} lg={8} >
+                        <div className="pt-md-4 h-100 pt-sm-4 d-flex justify-content-xl-end justify-content-sm-center align-items-center" >
+                            <Button className="" variant="dark" >Open Your Free Store Now</Button>
+                            <Button className="" >Login to Seller Center</Button>
+                        </div>
                     </Col>
 
                 </Row>
@@ -40,21 +40,10 @@ const StoreContainer = styled.div`
     color:var(--white);
     border-radius: 35px;
 `
-const Title = styled.h1`
- font-size:1.5rem;
-`
+
 const Description = styled.p`
 font-size:.8rem;
 `
-// const Button = styled.button`
-//  border: none;
-//  border-radius: 35px;
-//  font-size:.8rem;
-//  font-weight: 600;
-// `
 const ButtonContainer = styled.div`
-   height:100%;
-   display: flex;
-   justify-content: flex-end;
-   align-items: center;
+  
 `

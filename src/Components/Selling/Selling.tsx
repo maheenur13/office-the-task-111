@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import styled from 'styled-components';
+import { Title } from '../atoms';
 
 
 
@@ -50,44 +51,45 @@ const startSellingData = [
     },
 ]
 const Selling: FC = () => {
-   
+
     return (
-        <SellingContainer className="py-4 px-5" >
-            <Image />
-            <Row>
-                <HeaderText className="mb-5">Why sell on zDrop?</HeaderText>
+        <SellingContainer className="px-sm-2 py-4  px-md-5  px-xl-5 " >
+            <Image className="d-block w-auto" />
+            <div className="px-5">
                 <Row>
-                    
-                    {sellTextArray?.map(texts => {
-                        return (
-                            <Col className="px-5 mb-3" lg={3}>
-                                <SellHeadText>{texts?.heading}</SellHeadText>
-                                <SellParaText>{texts?.details}</SellParaText>
-                            </Col>
-                        )
-                    })
-                    }
-                    
+                    <Title className="mb-5 mx-auto font-weight-normal">Why sell on zDrop?</Title>
+                    <Row>
+                        {sellTextArray?.map(texts => {
+                            return (
+                                <Col lg={6} xl={3} className="">
+                                    <div className=" mr-2 mb-3">
+                                        <Title className="text-left  pr-5" size='md'>{texts?.heading}</Title>
+                                        <SellParaText className="">{texts?.details}</SellParaText>
+                                    </div>
+                                </Col>
+                            )
+                        })
+                        }
+                    </Row>
                 </Row>
-            </Row>
-            <div className="py-4 px-5 ">
-                <SellingHeaderText className="my-5">How To Start Selling</SellingHeaderText>
-                <Row>
+            </div>
+            <div className="py-2 px-lg-5 px-xl-5 px-md-5 px-sm-0">
+                <Title className="my-5 mx-auto text-center font-weight-normal">How To Start Selling</Title>
+                <Row className="">
                     {
                         startSellingData?.map((data) => {
                             return (
-                                <Col  lg={3} md={6}>
-                                    <SellingBox className="pt-5 pl-4 pr-4 my-3">
-                                        <IconSvg className="">{data.icon}</IconSvg>
-                                        <h6 className="my-2">{data?.title}</h6>
-                                        <SellParaText  className="pb-2">{data?.details}</SellParaText>
+                                <Col md={6} lg={6} xl={3}>
+                                    <SellingBox className="pt-5 px-4 my-3 mx-auto">
+                                        <IconSvg>{data.icon}</IconSvg>
+                                        <Title className="my-2 text-left" size="sm">{data?.title}</Title>
+                                        <SellParaText >{data?.details}</SellParaText>
                                     </SellingBox>
                                 </Col>
                             )
                         })
                     }
                 </Row>
-
             </div>
         </SellingContainer>
     );
@@ -99,42 +101,24 @@ const SellingContainer = styled.div`
 background-color: var(--black);
 border-radius:0px 0px 35px 35px;
 `
-
 const Image = styled.img`
 display: block;
  margin: auto;
 background: transparent  0% 0% no-repeat padding-box;
-height:320px;
-width:320px;
-`
-const HeaderText = styled.h1`
-color:var(--white);
-text-align:center;
-font: normal normal normal 45px/60px Segoe UI;
-text-align:center;
-margin: auto;
-`
-
-const SellHeadText = styled.h3`
-font: normal normal 600 25px/33px Segoe UI;
-color:var(--white);
-word-wrap: break-word;
-
+max-height:320px;
+max-width:320px;
 `
 const SellParaText = styled.p`
 color:var(--white);
 font-size:0.87rem;
 `
-
-const SellingHeaderText = styled.h1`
-color:var(--white);
-text-align:center;
-`
 const SellingBox = styled.div`
 background-color: var(--primary);
 border-radius: 35px;
 color:var(--white);
-min-height:250px;
+height:245px;
+max-width:255px;
+
 
 `
 const IconSvg = styled.h2`

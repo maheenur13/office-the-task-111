@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
+import { Title } from '../atoms';
 
 const frequentData = [
     {
@@ -83,8 +84,8 @@ const frequentListData = [
 
 const Frequent: FC = () => {
     return (
-        <FrequentContainer className="py-3" >
-            <Title className="mb-5">Frequently Asked Questions</Title>
+        <FrequentContainer className="py-4" >
+            <Title className="mb-5 font-weight-normal" variant="black">Frequently Asked Questions</Title>
             <Row className="justify-content-around">
                 {
                     frequentData?.map((data) => {
@@ -92,15 +93,15 @@ const Frequent: FC = () => {
                         return (
                             <Col lg={4}> 
                                                          
-                                    <SmallTitle className="mb-3">{data?.title}</SmallTitle>
-                                    <Description className="pr-5">{data?.description}</Description>                               
+                                    <Title className="mb-3 text-left " variant="black" size="md">{data?.title}</Title>
+                                    <Description className="pr-5 mb-md-3">{data?.description}</Description>                               
                                     
                             </Col>
                         )
                     })
                 }
             </Row>
-            <Row className="justify-content-around my-5">
+            <Row className="justify-content-around my-5 my-md-3">
                 {
                     frequentListData?.map((data) => {
                         const listData = data?.lists;
@@ -108,7 +109,7 @@ const Frequent: FC = () => {
                         const extraLists = extraInfos?.lists;
                         return (
                             <Col lg={4}>                               
-                                    <SmallTitle className="mb-3">{data?.title}</SmallTitle>
+                                    <Title className="mb-3 mt-md-3 text-left" variant="black" size="md">{data?.title}</Title>
                                     <Description>{data?.description}</Description>
                                     {
                                         listData?.map((data) => {
@@ -117,7 +118,7 @@ const Frequent: FC = () => {
                                             )
                                         })
                                     }
-                                    <ExtraSmallTitle className="mt-4">{extraInfos?.title}</ExtraSmallTitle>
+                                    <ExtraSmallTitle className="mt-4 mt-sm-3">{extraInfos?.title}</ExtraSmallTitle>
                                     {
                                         extraLists.map((data) =>{
                                             return (
@@ -142,11 +143,7 @@ export default Frequent;
 const FrequentContainer = styled.div`
 
 `
-const Title = styled.h1`
-    text-align: center;
-    font-size: 45px;
-    font-weight:normal;
-`
+
 const SmallTitle = styled.h1`
     font-size: 25px;
 `

@@ -9,7 +9,7 @@ import Tools from "./Components/Tools/Tools";
 function App() {
   return (
     <div>
-      <Container>
+      <Container className="py-5">
         <SellOnZDrop/>
         <Selling/>
         <Tools/>

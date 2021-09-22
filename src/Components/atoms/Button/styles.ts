@@ -3,7 +3,7 @@ import { ButtonProps } from '.';
 
 export const ButtonWrapper = styled.button<ButtonProps>`
     height: 45px;
-    padding: 0 20px;
+    padding: 0 25px;
     font-weight: 500;
     display: inline-block;
 	cursor: pointer;
