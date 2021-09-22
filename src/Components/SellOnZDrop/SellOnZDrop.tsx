@@ -52,7 +52,7 @@ const SellOnZDrop: FC = () => {
                         </div>
                     </div>
                 </Col>
-                <Col xs={12} md={12} lg={6} className="mt-sm-3 p-0" >
+                <Col xs={12} md={12} lg={6} className="mt-sm-3" >
                     <div className="button-box ">
                         <Button variant='black'>Open Your Free Store Now</Button>
                         <Button variant='white'>Log in to Seller Center</Button>
