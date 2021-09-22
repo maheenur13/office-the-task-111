@@ -24,13 +24,13 @@ const Tools: FC = () => {
 
     return (
         <ToolsBox className="px-5 my-5">
-            <Title className="my-4 font-weight-normal" variant="black">Powerful Tools To Grow Your Business</Title>
+            <Title className="title my-4 font-weight-normal" variant="black">Powerful Tools To Grow Your Business</Title>
             <Row>
                 {toolsData?.map((data) => {
                     return (
                         <Col lg={4}>
-                            <div className="p-5 p-md-3 ">
-                                <Title className="mb-3 text-left" variant="black" size="md" >{data.title}</Title>
+                            <div className="p-5 tools-box p-md-3 ">
+                                <Title className="mb-3 text-left " variant="black" size="md" >{data.title}</Title>
                                 <Description>{data.description}</Description>
                             </div>
                         </Col>
@@ -44,7 +44,12 @@ const Tools: FC = () => {
 export default Tools;
 
 const ToolsBox = styled.div`
-
+    @media only screen and (max-width:425px){
+        .tools-box{
+            
+            padding:0px!important;
+        }
+    }
 `
 
 const Description = styled.p`

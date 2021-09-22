@@ -57,7 +57,7 @@ const Selling: FC = () => {
             <Image className="d-block w-auto" />
             <div className="px-5">
                 <Row>
-                    <Title className="mb-5 mx-auto font-weight-normal">Why sell on zDrop?</Title>
+                    <Title className="title mb-5 mx-auto font-weight-normal">Why sell on zDrop?</Title>
                     <Row>
                         {sellTextArray?.map(texts => {
                             return (
@@ -74,7 +74,7 @@ const Selling: FC = () => {
                 </Row>
             </div>
             <div className="py-2 px-lg-5 px-xl-5 px-md-5 px-sm-0">
-                <Title className="my-5 mx-auto text-center font-weight-normal">How To Start Selling</Title>
+                <Title className="title my-5 mx-auto text-center font-weight-normal">How To Start Selling</Title>
                 <Row className="">
                     {
                         startSellingData?.map((data) => {

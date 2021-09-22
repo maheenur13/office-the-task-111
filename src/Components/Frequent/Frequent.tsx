@@ -85,7 +85,7 @@ const frequentListData = [
 const Frequent: FC = () => {
     return (
         <FrequentContainer className="py-4" >
-            <Title className="mb-5 font-weight-normal" variant="black">Frequently Asked Questions</Title>
+            <Title className="title mb-5 font-weight-normal" variant="black">Frequently Asked Questions</Title>
             <Row className="justify-content-around">
                 {
                     frequentData?.map((data) => {

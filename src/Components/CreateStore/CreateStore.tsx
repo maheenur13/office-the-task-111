@@ -11,17 +11,17 @@ const storeData =
 
 const CreateStore: FC = () => {
     return (
-        <StoreContainer className="mt-3 mb-5">
-            <div className="p-5 px-5">
+        <StoreContainer className="mt-3 mb-5 ">
+            <div className="py-5 px-5">
                 <Row>
                     <Col xl={3} lg={4}>
-                        <div className="ml-5">
+                        <div className="">
                             <Title className="mb-4 text-lg-left " size="md">{storeData?.title}</Title>
                             <Description className="px-sm-5 px-md-0">{storeData?.description}</Description>
                         </div>
                     </Col>
                     <Col xl={9} lg={8} >
-                        <div className="pt-md-4 h-100 pt-sm-4 d-flex justify-content-xl-end justify-content-sm-center align-items-center" >
+                        <div className="pt-md-4 h-100 pt-sm-4 button-box d-flex justify-content-center justify-content-xl-end justify-content-sm-center flex-wrap align-items-center" >
                             <Button className="" variant="dark" >Open Your Free Store Now</Button>
                             <Button className="" >Login to Seller Center</Button>
                         </div>
@@ -39,6 +39,24 @@ const StoreContainer = styled.div`
     background-color: black;
     color:var(--white);
     border-radius: 35px;
+    @media only screen and (max-width:767px){
+        Button:nth-child(1){
+            margin-bottom: 10px;
+        }
+        Button:nth-child(2){
+            margin-right: 15px;
+        }
+    }
+    @media only screen and (max-width:575px){
+        .button-box{
+            margin-top:13px;
+        }
+        Button:nth-child(1){
+            margin-top: 10px;
+        }
+        
+    }
+    
 `
 
 const Description = styled.p`
