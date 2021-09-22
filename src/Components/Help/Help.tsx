@@ -24,7 +24,7 @@ const Help: FC = () => {
                             helpSectionData?.map((data) => {
                                 return (
                                     <div>
-                                        <Title className="mb-3 text-left md-title" size='md'>{data?.title}</Title>
+                                        <Title className="mb-3  text-left md-title" size='md'>{data?.title}</Title>
                                         <div className="px-4 px-md-0 px-lg-0 px-xl-0">
                                             <Description>Mail: {data?.email}</Description>
                                             <Description>Call: {data?.phone}</Description>
@@ -60,6 +60,11 @@ const HelpContainer = styled.div`
     background-color:black;
     color:var(--white);
     border-radius: 35px;
+    @media only screen and (max-width:425px){
+        .md-title{
+            padding:0px 10px;
+        }
+    }
 
     .button-box{
         display:flex;

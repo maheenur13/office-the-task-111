@@ -11,7 +11,7 @@ const storeData =
 
 const CreateStore: FC = () => {
     return (
-        <StoreContainer className="mt-3 mb-5 ">
+        <StoreContainer className="mt-3 mb-5 px-xl-5 ">
             <div className="py-5 px-5">
                 <Row>
                     <Col xl={3} lg={4}>

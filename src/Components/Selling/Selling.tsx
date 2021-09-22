@@ -64,7 +64,7 @@ const Selling: FC = () => {
                                 <Col lg={6} xl={3} className="">
                                     <div className=" mr-2 mb-3">
                                         <Title className="text-left md-title" size='md'>{texts?.heading}</Title>
-                                        <SellParaText className="">{texts?.details}</SellParaText>
+                                        <SellParaText className="description">{texts?.details}</SellParaText>
                                     </div>
                                 </Col>
                             )
@@ -82,7 +82,7 @@ const Selling: FC = () => {
                                 <Col md={6} lg={6} xl={3}>
                                     <SellingBox className="pt-5 px-4 my-3 mx-auto">
                                         <IconSvg>{data.icon}</IconSvg>
-                                        <Title className="my-2 text-left" size="sm">{data?.title}</Title>
+                                        <Title className="my-2 text-left " size="sm">{data?.title}</Title>
                                         <SellParaText >{data?.details}</SellParaText>
                                     </SellingBox>
                                 </Col>
@@ -100,6 +100,11 @@ export default Selling;
 const SellingContainer = styled.div`
 background-color: var(--black);
 border-radius:0px 0px 35px 35px;
+@media only screen and (max-width:425px){
+    .md-title{
+        margin-top: 15px;
+    }
+}
 `
 const Image = styled.img`
 display: block;

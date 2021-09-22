@@ -11,12 +11,12 @@ function App() {
   return (
     <AppContainer>
       <Container className="py-2">
-        <SellOnZDrop/>
-        <Selling/>
-        <Tools/>
-        <CreateStore/>
-        <Frequent/>
-        <Help/>
+        <SellOnZDrop />
+        <Selling />
+        <Tools />
+        <CreateStore />
+        <Frequent />
+        <Help />
       </Container>
     </AppContainer>
   );
@@ -24,14 +24,14 @@ function App() {
 
 export default App;
 
-const AppContainer =styled.div`
+const AppContainer = styled.div`
 
 @media only screen and (max-width: 425px){
     .title{
-             font-size: 1.8rem;
+             font-size: 1.7rem;
          }
          .md-title{
-           font-size: 1.2rem;
+           font-size: 1.1rem;
            text-align: center!important;
          }
          .description{
@@ -43,4 +43,13 @@ const AppContainer =styled.div`
             font-size: .7rem;
         }
     }
+    @media only screen and (max-width:768px){
+      .title{
+        font-size: 1.7rem;
+    }
+    .md-title{
+      font-size: 1.4rem;
+    }
+    }
+   
 `

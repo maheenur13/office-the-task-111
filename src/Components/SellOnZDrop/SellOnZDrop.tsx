@@ -68,7 +68,11 @@ export default SellOnZDrop;
 const SellSection = styled.div`
  background:var(--primary);
  border-radius: 35px  35px 0px 0px;
- 
+ @media only screen and (max-width:1024px){
+     .button-box{
+         margin-right:10px;
+     }
+ }
  .button-box{
      height:100%;
      display:flex;
