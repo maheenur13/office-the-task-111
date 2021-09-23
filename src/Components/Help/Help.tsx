@@ -36,7 +36,7 @@ const Help: FC = () => {
                             })
                         }
                     </Col>
-                    <Col md={12} lg={4} className=" mt-3 mt-md-3 mt-lg-0 mt-xl-0">
+                    <Col md={12} lg={4} className=" mt-4 mt-md-3 mt-lg-0 mt-xl-0">
                         <div className="button-box">
                             <Button className="mx-md-auto mx-sm-auto mx-auto mx-lg-0" variant="white">Call Seller Support Center</Button>
                         </div>

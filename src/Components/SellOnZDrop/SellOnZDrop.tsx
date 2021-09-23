@@ -35,12 +35,12 @@ const CheckIcon = styled.svg`
 
 const SellOnZDrop: FC = () => {
     return (
-        <SellSection className="mt-4 py-5 px-2 px-sm-5 px-md-5 px-lg-2 px-xl-5">
-            <Row>
-                <Col xs={12} md={12} lg={6} className="" >
-                    <div className="px-5 d-md-flex flex-md-column d-md-flex justify-content-md-center align-items-md-center d-lg-block d-xl-block">
+        <SellSection className="mt-4 py-5 px-sm-5 px-md-5 px-lg-2 px-xl-5">
+            <Row className="justify-content-between">
+                <Col xs={12} md={12} lg={5}  >
+                    <div className="px-4 d-md-flex flex-md-column d-md-flex justify-content-md-center align-items-md-center d-lg-block d-xl-block">
                         <Title className="title text-lg-left text-xl-left mb-3 font-weight-normal text-center">Sell on zDrop</Title>
-                        <div className="my-md-3">
+                        <div className="my-md-3 px-3 px-sm-0 px-md-0 px-lg-0 px-xl-0">
                             {
                                 texts.map((s) => {
                                     console.log(s)
@@ -52,7 +52,7 @@ const SellOnZDrop: FC = () => {
                         </div>
                     </div>
                 </Col>
-                <Col xs={12} md={12} lg={6} className="mt-sm-3" >
+                <Col xs={12} md={12} lg={7} className="mt-sm-3 " >
                     <div className="button-box ">
                         <Button variant='black'>Open Your Free Store Now</Button>
                         <Button variant='white'>Log in to Seller Center</Button>
@@ -68,9 +68,19 @@ export default SellOnZDrop;
 const SellSection = styled.div`
  background:var(--primary);
  border-radius: 35px  35px 0px 0px;
- @media only screen and (max-width:1024px){
+ @media only screen and (max-width:1199px){
      .button-box{
-         margin-right:10px;
+         margin-right:35px;
+     }
+ }
+ @media only screen and (max-width:767px){
+     .button-box{
+         margin-right:0px;
+         flex-direction:column;
+         Button:nth-child(2){
+             margin-top: 7px;
+             margin-right:20px;
+         }
      }
  }
  .button-box{
@@ -84,11 +94,11 @@ const SellSection = styled.div`
      @media only screen and (max-width:575px){
          flex-direction: column;
          Button:nth-child(1){
-             margin-top: 10px;
+             margin-top: 15px;
              margin-bottom:10px;
          }
          Button:nth-child(2){
-             margin-left:5px;
+            margin-right:20px;
          }
      }
     

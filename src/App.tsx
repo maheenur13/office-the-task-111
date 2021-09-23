@@ -25,7 +25,6 @@ function App() {
 export default App;
 
 const AppContainer = styled.div`
-
 @media only screen and (max-width: 425px){
     .title{
              font-size: 1.7rem;
