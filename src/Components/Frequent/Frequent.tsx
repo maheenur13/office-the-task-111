@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import styled from 'styled-components';
 import { Description, Title } from '../atoms';
 import { frequentData, frequentListData } from './frequentData';

@@ -8,14 +8,14 @@ import { texts } from './sellData';
 
 const SellOnZDrop: FC = () => {
     return (
-        <SellSection className="mt-4 py-4 px-sm-5 px-md-5 px-lg-2 px-xl-5">
+        <SellSection className="mt-4 py-5 px-sm-5 px-lg-2 px-xl-5">
             <Row className="justify-content-between">
                 <Col xs={12} md={12} lg={5}>
-                    <div className="px-4 d-md-flex flex-md-column d-md-flex justify-content-md-center align-items-md-center d-lg-block d-xl-block">
-                        <Title className="title text-lg-left text-xl-left mb-3 font-weight-normal text-center">
+                    <div className="px-5 py-3 py-sm-0 d-md-flex flex-md-column justify-content-md-center align-items-md-center d-lg-block">
+                        <Title className="title text-lg-left mb-3 text-center font-weight-normal">
                             Sell on zDrop
                         </Title>
-                        <div className="my-md-3 px-3 px-sm-0 px-md-0 px-lg-0 px-xl-0">
+                        <div className="my-md-3 px-3 px-sm-0">
                             {texts.map((s) => {
                                 console.log(s);
                                 return (

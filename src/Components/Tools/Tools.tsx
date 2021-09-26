@@ -29,7 +29,7 @@ const Tools: FC = () => {
                 {toolsData?.map((data) => {
                     return (
                         <Col lg={4}>
-                            <div className="p-5 tools-box p-md-3 ">
+                            <div className="py-2 py-lg-4 tools-box px-5 ">
                                 <Title className="mb-2 text-left md-title" variant="black" size="md" >{data.title}</Title>
                                 <Description className="description mb-3">{data.description}</Description>
                             </div>
