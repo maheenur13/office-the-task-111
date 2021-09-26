@@ -30,3 +30,21 @@
         font-size: 1.4rem !important;
     }
 }
+.store-container{
+    @media only screen and (max-width: 767px) {
+		Button:nth-child(1) {
+			margin-bottom: 10px;
+		}
+		Button:nth-child(2) {
+			margin-right: 15px;
+		}
+	}
+	@media only screen and (max-width: 575px) {
+		.button-box {
+			margin-top: 13px;
+		}
+		Button:nth-child(1) {
+			margin-top: 10px;
+		}
+	}
+}

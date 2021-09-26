@@ -11,7 +11,7 @@ const storeData = {
 
 const CreateStore: FC = () => {
 	return (
-		<StoreContainer className="mt-3 mb-5 px-xl-5 ">
+		<StoreContainer className="mt-3 mb-5 px-xl-5 store-container">
 			<div className="py-5 px-4 px-sm-5">
 				<Row>
 					<Col xl={3} lg={4}>
@@ -42,21 +42,6 @@ const StoreContainer = styled.div`
 	background-color: black;
 	color: var(--white);
 	border-radius: 35px;
-	@media only screen and (max-width: 767px) {
-		Button:nth-child(1) {
-			margin-bottom: 10px;
-		}
-		Button:nth-child(2) {
-			margin-right: 15px;
-		}
-	}
-	@media only screen and (max-width: 575px) {
-		.button-box {
-			margin-top: 13px;
-		}
-		Button:nth-child(1) {
-			margin-top: 10px;
-		}
-	}
+	
 `;
 
