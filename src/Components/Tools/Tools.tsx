@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import styled from 'styled-components';
-import { Title } from '../atoms';
+import { Description, Title } from '../atoms';
 
 const toolsData = [
     {
@@ -23,7 +23,7 @@ const Tools: FC = () => {
 
 
     return (
-        <ToolsBox className="px-5 my-5">
+        <ToolsBox className="px-3 px-sm-5 my-5">
             <Title className="title my-4 font-weight-normal" variant="black">Powerful Tools To Grow Your Business</Title>
             <Row>
                 {toolsData?.map((data) => {
@@ -52,6 +52,3 @@ const ToolsBox = styled.div`
     }
 `
 
-const Description = styled.p`
-font-size:0.87rem;
-`

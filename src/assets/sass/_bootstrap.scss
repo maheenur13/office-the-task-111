@@ -1,6 +1,5 @@
-$primary:#05AD5D!default;
+$primary: #05ad5d !default;
+$font-size-base: 0.875rem !default;
+$font-family-sans-serif: 'Segoe UI', sans-serif;
 
-$font-size-base:              0.875rem !default;
-$font-family-sans-serif: "Segoe UI", sans-serif;
-
-@import '~bootstrap/scss/bootstrap.scss'
+@import '~bootstrap/scss/bootstrap.scss';

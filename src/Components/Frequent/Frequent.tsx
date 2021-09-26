@@ -1,155 +1,70 @@
 import { FC } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
-import { Title } from '../atoms';
-
-const frequentData = [
-    {
-        title: 'How Do I Get Paid?',
-        description: 'All payments are made to the bank account of your choice. All payment details are collected during the onboarding process and you will then get paid as per your sales. As easy as it gets!'
-    },
-    {
-        title: 'What Fees Do I Get Charged?',
-        description: 'Listing your products on zDrop is always free. Based on product categories, we do charge a nominal commission on the value of the order placed on zDrop. Reach out to your local Key Account Manager for a specified offer.'
-    },
-
-]
-const frequentListData = [
-    {
-        title: 'How Do I Maximise My Earnings?',
-        description: 'We rate sellers with the following traits get a Top Seller Badge, good ratings attain more visibility on the platform:',
-        lists: [
-            {
-                list: '• High-Quality and accurate product images'
-            },
-            {
-                list: '• Detailed and Accurate Product names'
-            },
-            {
-                list: '• Detailed Description of Product'
-            },
-            {
-                list: '• Competitive pricing'
-            },
-            {
-                list: '• Accurate product sizing and size guides'
-            },
-        ],
-        extraInfo: [
-            {
-                title: 'We also highly suggest you to:',
-                lists: [
-                    {
-                        list: '• Join in on any campaign we are having on the site were zDrop will promote you in marketing',
-                    },
-                    {
-                        list: '• Create customized promotions to get more focus on your store',
-                    },
-                    {
-                        list: '• Monitor your performance in the Analytics Dashboard',
-                    }
-                ],
-                description: ''
-            }
-
-        ]
-    },
-    {
-        title: 'How Do I Build A Good Catalogue?',
-        description: 'We always suggest you to focus on the product catalog. Make sure that you upload:',
-        lists: [
-            {
-                list: '• Accept and Ship Orders on Time'
-            },
-            {
-                list: '• Sell Top quality products as rated by customers'
-            },
-            {
-                list: '• Good Packaging'
-            },
-            {
-                list: '• Minimum Cancellations'
-            },
-        ],
-        extraInfo: [
-
-            {
-                title: '',
-                lists: [],
-                description: 'Feel free to reach out to your local Key Account Management if you need help with the uploading, or to create better content. We can help you all the way!'
-            }
-        ]
-    },
-]
+import { Description, Title } from '../atoms';
+import { frequentData, frequentListData } from './frequentData';
 
 const Frequent: FC = () => {
-    return (
-        <FrequentContainer className="py-lg-5 px-5 px-lg-0 px-xl-0 frequent-container" >
-            <Title className="title mb-5 font-weight-normal" variant="black">Frequently Asked Questions</Title>
-            <Row className="justify-content-around">
-                {
-                    frequentData?.map((data) => {
+	return (
+		<FrequentContainer className="py-lg-5 px-3 px-sm-0 frequent-container">
+			<Title className="title mb-5 font-weight-normal" variant="black">
+				Frequently Asked Questions
+			</Title>
+			<Row className="justify-content-around">
+				{frequentData?.map((data) => {
+					return (
+						<Col lg={4}>
+							<div className="mb-5 px-sm-5 px-lg-0">
+								<Title className="mb-3 mb-sm-2  text-left md-title" variant="black" size="md">
+									{data?.title}
+								</Title>
+								<Description className="mb-md-3">
+									{data?.description}
+								</Description>
+							</div>
+						</Col>
+					);
+				})}
+			</Row>
+			<Row className="justify-content-around">
+				{frequentListData?.map((data) => {
+					const listData = data?.lists;
+					const extraInfos = data?.extraInfo[0];
+					const extraLists = extraInfos?.lists;
+					return (
+						<Col lg={4}>
+							<div className="mb-5 px-sm-5 px-lg-0">
+								<Title className="mt-3 mt-sm-0 text-left md-title" variant="black" size="md">
+									{data?.title}
+								</Title>
+								<Description className=" px-sm-0 px-md-2 px-lg-2 px-xl-2 description">
+									{data?.description}
+								</Description>
 
-                        return (
-                            <Col lg={4} >
-                                <div className="mb-5 px-sm-5 px-lg-0">
-                                    <Title className="mb-3 mb-sm-2  text-left md-title" variant="black" size="md">{data?.title}</Title>
-                                    <Description className="px-md-0 px-lg-0 px-xl-0 description mb-md-3">{data?.description}</Description>
-                                </div>
-
-                            </Col>
-                        )
-                    })
-                }
-            </Row>
-            <Row className="justify-content-around">
-                {
-                    frequentListData?.map((data) => {
-                        const listData = data?.lists;
-                        const extraInfos = data?.extraInfo[0];
-                        const extraLists = extraInfos?.lists;
-                        return (
-                            <Col lg={4}>
-                                <div className="mb-5 px-sm-5 px-lg-0">
-                                    <Title className="mt-3 mt-sm-0 text-left md-title" variant="black" size="md">{data?.title}</Title>
-                                    <Description className=" px-sm-0 px-md-2 px-lg-2 px-xl-2 description">{data?.description}</Description>
-
-                                    {
-                                        listData?.map((data) => {
-                                            return (
-                                                <Description className=" px-md-0 px-lg-0 px-xl-0">{data?.list}</Description>
-                                            )
-                                        })
-                                    }
-                                    <ExtraSmallTitle className=" px-md-0 px-lg-0 px-xl-0 mt-3 mt-sm-0">{extraInfos?.title}</ExtraSmallTitle>
-                                    {
-                                        extraLists.map((data) => {
-                                            return (
-                                                <Description className=" px-md-0 px-lg-0 px-xl-0">{data?.list}</Description>
-                                            )
-                                        })
-                                    }
-                                    <Description className=" px-md-0 px-lg-0 px-xl-0" >{extraInfos?.description}</Description>
-                                </div>
-                            </Col>
-                        )
-                    })
-                }
-
-            </Row>
-        </FrequentContainer>
-    );
+								{listData?.map((data) => {
+									return <Description className=" px-md-0 px-lg-0 px-xl-0">{data?.list}</Description>;
+								})}
+								<ExtraSmallTitle className=" px-md-0 px-lg-0 px-xl-0 mt-3 mt-sm-0">
+									{extraInfos?.title}
+								</ExtraSmallTitle>
+								{extraLists.map((data) => {
+									return <Description className=" px-md-0 px-lg-0 px-xl-0">{data?.list}</Description>;
+								})}
+								<Description className=" px-md-0 px-lg-0 px-xl-0">
+									{extraInfos?.description}
+								</Description>
+							</div>
+						</Col>
+					);
+				})}
+			</Row>
+		</FrequentContainer>
+	);
 };
 
 export default Frequent;
 
-const FrequentContainer = styled.div`
-
-`
-const Description = styled.p`
-
-
-`
+const FrequentContainer = styled.div``;
 const ExtraSmallTitle = styled.h1`
- font-size:14px;
-`
+	font-size: 14px;
+`;
