@@ -31,7 +31,7 @@ const Tools: FC = () => {
                         <Col lg={4}>
                             <div className="py-2 py-lg-4 tools-box px-5 ">
                                 <Title className="mb-2 text-left md-title" variant="black" size="md" >{data.title}</Title>
-                                <Description className="description mb-3">{data.description}</Description>
+                                <Description className="description mb-3 text-sm-left">{data.description}</Description>
                             </div>
                         </Col>
                     )

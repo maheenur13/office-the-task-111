@@ -19,7 +19,7 @@ const CreateStore: FC = () => {
 							<Title className="mb-4 text-sm-left md-title" size="md">
 								{storeData?.title}
 							</Title>
-							<Description className="px-sm-5 px-md-0" variant='white'>{storeData?.description}</Description>
+							<Description className="px-sm-5 px-md-0 text-sm-left" variant='white'>{storeData?.description}</Description>
 						</div>
 					</Col>
 					<Col xl={9} lg={8}>
