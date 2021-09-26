@@ -6,11 +6,11 @@ import { frequentData, frequentListData } from './frequentData';
 
 const Frequent: FC = () => {
 	return (
-		<FrequentContainer className="py-lg-5 px-3 px-sm-0 frequent-container">
+		<FrequentContainer className="py-lg-5 px-4  frequent-container">
 			<Title className="title mb-5 font-weight-normal" variant="black">
 				Frequently Asked Questions
 			</Title>
-			<Row className="justify-content-around">
+			<Row className="justify-content-around ">
 				{frequentData?.map((data) => {
 					return (
 						<Col lg={4}>

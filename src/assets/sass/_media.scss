@@ -1,19 +1,18 @@
 @media only screen and (max-width: 425px) {
     .title {
-        font-size: 1.6rem !important;
+        font-size: 1.4rem !important;
     }
     .md-title {
-        font-size: 1.2rem !important;
+        font-size: 1.1rem !important;
     }
     .description {
         text-align: justify;
     }
-}
-@media only screen and (max-width: 425px) {
     .button-box Button {
         font-size: 0.7rem;
     }
 }
+
 @media only screen and (max-width: 768px) {
     .title {
         font-size: 1.7rem;
@@ -30,6 +29,7 @@
         font-size: 1.4rem !important;
     }
 }
+
 .store-container{
     @media only screen and (max-width: 767px) {
 		Button:nth-child(1) {
