@@ -19,7 +19,9 @@ const Selling: FC = () => {
 										<Title className="text-left md-title" size="md">
 											{texts?.heading}
 										</Title>
-										<Description className="description text-sm-left" variant='white'>{texts?.details}</Description>
+										<Description className="description text-sm-left" variant="white">
+											{texts?.details}
+										</Description>
 									</div>
 								</Col>
 							);
@@ -29,18 +31,19 @@ const Selling: FC = () => {
 			</div>
 			<div className="py-2 px-md-5">
 				<Title className="title my-4 mx-auto text-center font-weight-normal">How To Start Selling</Title>
-				<Row className="w-100 m-auto card-box ">
+				<Row className="w-100 m-auto card-box">
 					{startSellingData?.map((data) => {
 						return (
-							<Col lg={6} md={6} sm={6} xs={6} xl={3} className="border">
-								<h1>ok</h1>
-								<SellingBox className="mx-auto">
-									<div className="px-4">
+							<Col sm={6} xl={3} className="mb-3 mb-sm-0 selling-col">
+								<SellingBox className="mx-auto selling-box">
+									<div className="mx-4">
 										<IconSvg className="mb-3">{data.icon}</IconSvg>
 										<Title className="mb-4 text-left card-title" size="sm">
 											{data?.title}
 										</Title>
-										<Description className="text-sm-left" variant='white'>{data?.details}</Description>
+										<Description className="text-sm-left" variant="white">
+											{data?.details}
+										</Description>
 									</div>
 								</SellingBox>
 							</Col>
@@ -62,12 +65,17 @@ const SellingContainer = styled.div`
 			margin-top: 15px;
 		}
 	}
-	@media only screen and (max-width: 446px) {
+	@media only screen and (max-width: 534px) {
 		.card-box {
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
 		}
+		.selling-box {
+			max-width: 260px;
+			margin: auto;
+		}
+
 		.sell-card {
 			min-width: 100% !important;
 		}
@@ -85,12 +93,19 @@ const SellingBox = styled.div`
 	border-radius: 35px;
 	color: var(--white);
 	min-height: 245px;
-	display: flex;
-	justify-content: center;
-	/* flex-wrap: wrap; */
-	align-items: center;
-	@media only screen and (min-width: 447px) {
-		min-height: 280px;
+	padding-top: 35px;
+
+	@media only screen and (max-width: 1199px) {
+		max-width: 285px;
+		margin-bottom: 35px;
+	}
+	@media only screen and (max-width: 991px) {
+		max-width: 225px;
+		margin-bottom: 25px;
+	}
+	@media only screen and (max-width: 575px) {
+		max-width: 255px;
+		/* margin-bottom: 25px; */
 	}
 `;
 const IconSvg = styled.h2`
