@@ -14,8 +14,8 @@ const Selling: FC = () => {
 					<Row>
 						{sellTextArray?.map((texts) => {
 							return (
-								<Col lg={6} xl={3} className="">
-									<div className=" mr-2 mb-3 px-sm-4">
+								<Col lg={6} xl={3}>
+									<div className="mr-2 mb-3 px-sm-4">
 										<Title className="text-left md-title" size="md">
 											{texts?.heading}
 										</Title>
@@ -32,13 +32,16 @@ const Selling: FC = () => {
 				<Row className="w-100 m-auto card-box ">
 					{startSellingData?.map((data) => {
 						return (
-							<Col lg={6} md={6} sm={6} xs={6} xl={3} className="p-1 px-sm-3 sell-card">
-								<SellingBox className="pt-5 px-4 my-3 mx-auto ">
-									<IconSvg>{data.icon}</IconSvg>
-									<Title className="my-2 text-left card-title" size="sm">
-										{data?.title}
-									</Title>
-									<Description className="text-sm-left" variant='white'>{data?.details}</Description>
+							<Col lg={6} md={6} sm={6} xs={6} xl={3} className="border">
+								<h1>ok</h1>
+								<SellingBox className="mx-auto">
+									<div className="px-4">
+										<IconSvg className="mb-3">{data.icon}</IconSvg>
+										<Title className="mb-4 text-left card-title" size="sm">
+											{data?.title}
+										</Title>
+										<Description className="text-sm-left" variant='white'>{data?.details}</Description>
+									</div>
 								</SellingBox>
 							</Col>
 						);
@@ -81,8 +84,11 @@ const SellingBox = styled.div`
 	background-color: var(--primary);
 	border-radius: 35px;
 	color: var(--white);
-	height: 245px;
-	max-width: 255px;
+	min-height: 245px;
+	display: flex;
+	justify-content: center;
+	/* flex-wrap: wrap; */
+	align-items: center;
 	@media only screen and (min-width: 447px) {
 		min-height: 280px;
 	}
