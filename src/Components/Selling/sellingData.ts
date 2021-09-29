@@ -1,24 +1,26 @@
+
+
 export const sellTextArray = [
 	{
-		icon: '',
+		icon: '/images/lowcommission.svg',
 		heading: 'Low Commissions',
 		details:
 			'Open a zDrop Seller Centre account and list your products for free on zDrop. Sell to a vast customer base for a small commission on orders.',
 	},
 	{
-		icon: '',
+		icon: '/images/business.svg',
 		heading: 'Business Growth',
 		details:
 			'Create your online store and reach millions of buyers. Launch discounts and promotions to grow your reach.',
 	},
 	{
-		icon: '',
+		icon: '/images/large.svg',
 		heading: 'Large Assortments of Products',
 		details:
 			'Sell across multiple categories including electronics, fashion, lifestyle, beauty, home goods, and more.',
 	},
 	{
-		icon: '',
+		icon: '/images/security.svg',
 		heading: 'Secure & Timely Payments',
 		details: "Enjoy reliable, secure and timely payments. Gain your buyer's trust with 100% payment protection.",
 	},

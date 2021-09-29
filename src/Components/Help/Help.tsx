@@ -16,6 +16,7 @@ const helpSectionData = [
 const Help: FC = () => {
 	return (
 		<HelpContainer>
+			<div className="back-image"></div>
 			<div className="py-5 px-3 px-md-5 px-lg-4 mb-3">
 				<Row className="justify-content-around">
 					<Col md={12} lg={5}>
@@ -53,6 +54,8 @@ export default Help;
 const Description = styled.p``;
 
 const HelpContainer = styled.div`
+	overflow: hidden;
+	position: relative;
 	background-color: black;
 	color: var(--white);
 	border-radius: 35px;
@@ -61,11 +64,22 @@ const HelpContainer = styled.div`
 			padding: 0px 10px;
 		}
 	}
-
 	.button-box {
 		display: flex;
 		height: 100%;
 		justify-content: flex-end;
 		align-items: center;
+	}
+	.back-image::before {
+		content: '';
+		background: url('/images/bg-3.svg') right top no-repeat;
+		width: 93%;
+		height: 100%;
+		display: block;
+	}
+	.back-image {
+		position: absolute;
+		width: 100%;
+		height: 100%;
 	}
 `;

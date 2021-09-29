@@ -7,7 +7,6 @@ import { sellTextArray, startSellingData } from './sellingData';
 const Selling: FC = () => {
 	return (
 		<SellingContainer className=" py-4 px-md-5">
-			<Image className="d-block w-auto" />
 			<div className="px-5">
 				<Row>
 					<Title className="title mb-3 mb-sm-5 mx-auto font-weight-normal">Why sell on zDrop?</Title>
@@ -15,7 +14,8 @@ const Selling: FC = () => {
 						{sellTextArray?.map((texts) => {
 							return (
 								<Col lg={6} xl={3}>
-									<div className="mr-2 mb-3 px-sm-4">
+									<div className="mr-2 text-md-left text-center mb-3 px-sm-4">
+										<img className="mb-2" src={texts?.icon} alt='' />
 										<Title className="text-left md-title" size="md">
 											{texts?.heading}
 										</Title>
@@ -80,12 +80,6 @@ const SellingContainer = styled.div`
 			min-width: 100% !important;
 		}
 	}
-`;
-const Image = styled.img`
-	display: block;
-	margin: auto;
-	max-height: 320px;
-	max-width: 320px;
 `;
 
 const SellingBox = styled.div`

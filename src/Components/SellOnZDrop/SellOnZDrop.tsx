@@ -4,8 +4,6 @@ import styled from 'styled-components';
 import { Button, Title } from '../atoms';
 import { texts } from './sellData';
 
-
-
 const SellOnZDrop: FC = () => {
     return (
         <SellSection className="mt-4 py-5 px-sm-5 px-lg-2 px-xl-5">

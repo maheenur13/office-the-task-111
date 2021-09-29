@@ -12,6 +12,7 @@ const storeData = {
 const CreateStore: FC = () => {
 	return (
 		<StoreContainer className="mt-3 mb-5 px-xl-5 store-container">
+			<div className="image-container"></div>
 			<div className="py-5 px-4 px-sm-5">
 				<Row>
 					<Col xl={3} lg={4}>
@@ -19,7 +20,9 @@ const CreateStore: FC = () => {
 							<Title className="mb-4 text-sm-left md-title" size="md">
 								{storeData?.title}
 							</Title>
-							<Description className="px-sm-5 px-md-0 text-sm-left" variant='white'>{storeData?.description}</Description>
+							<Description className="px-sm-5 px-md-0 text-sm-left" variant="white">
+								{storeData?.description}
+							</Description>
 						</div>
 					</Col>
 					<Col xl={9} lg={8}>
@@ -39,9 +42,25 @@ const CreateStore: FC = () => {
 export default CreateStore;
 
 const StoreContainer = styled.div`
+	position: relative;
 	background-color: black;
 	color: var(--white);
 	border-radius: 35px;
-	
-`;
+	overflow: hidden;
 
+	.image-container::before {
+		content: '';
+		background: url('/images/bg-2.svg')no-repeat right;
+		width: 100%;
+		height: 100%;
+		display: block;
+	}
+	.image-container {
+		height: 100%;
+		width: 100%;
+		position: absolute;
+		left: 0;
+		top:0;
+
+	}
+`;
