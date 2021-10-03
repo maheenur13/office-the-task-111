@@ -15,7 +15,7 @@ const Selling: FC = () => {
 							return (
 								<Col lg={6} xl={3}>
 									<div className="mr-2 text-md-left text-center mb-3 px-sm-4">
-										<img className="mb-2" src={texts?.icon} alt='' />
+										<img className="mb-2" src={texts?.icon} alt="" />
 										<Title className="text-left md-title" size="md">
 											{texts?.heading}
 										</Title>

@@ -37,7 +37,7 @@ const Help: FC = () => {
 						})}
 					</Col>
 					<Col md={12} lg={4} className=" mt-5 mt-lg-0">
-						<div className="button-box">
+						<div className="button-box mt-md-3">
 							<Button className="mx-md-auto mx-sm-auto mx-auto mx-lg-0" variant="white">
 								Call Seller Support Center
 							</Button>
@@ -56,7 +56,7 @@ const Description = styled.p``;
 const HelpContainer = styled.div`
 	overflow: hidden;
 	position: relative;
-	background-color: black;
+	background-color: var(--black);
 	color: var(--white);
 	border-radius: 35px;
 	@media only screen and (max-width: 425px) {

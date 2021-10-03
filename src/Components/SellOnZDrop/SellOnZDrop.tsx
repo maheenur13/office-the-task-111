@@ -5,49 +5,47 @@ import { Button, Title } from '../atoms';
 import { texts } from './sellData';
 
 const SellOnZDrop: FC = () => {
-    return (
-        <SellSection className="mt-4 py-5 px-sm-5 px-lg-2 px-xl-5">
-            <Row className="justify-content-between">
-                <Col xs={12} md={12} lg={5}>
-                    <div className="px-5 py-3 py-sm-0 d-md-flex flex-md-column justify-content-md-center align-items-md-center d-lg-block">
-                        <Title className="title text-lg-left mb-3 text-center font-weight-normal">
-                            Sell on zDrop
-                        </Title>
-                        <div className="my-md-3 px-3 px-sm-0">
-                            {texts.map((s) => {
-                                console.log(s);
-                                return (
-                                    <Text>
-                                        {' '}
-                                        <CheckIcon
-                                            className=""
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 30"
-                                            width="17"
-                                            height="24"
-                                        >
-                                            <path fill="none" d="M0 0h24v24H0z" />
-                                            <path
-                                                d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-.997-6l7.07-7.071-1.414-1.414-5.656 5.657-2.829-2.829-1.414 1.414L11.003 16z"
-                                                fill="rgba(185,255,220,1)"
-                                            />
-                                        </CheckIcon>{' '}
-                                        {s?.text}
-                                    </Text>
-                                );
-                            })}
-                        </div>
-                    </div>
-                </Col>
-                <Col xs={12} md={12} lg={7} className="mt-sm-3">
-                    <div className="button-box ">
-                        <Button variant="black">Open Your Free Store Now</Button>
-                        <Button variant="white">Log in to Seller Center</Button>
-                    </div>
-                </Col>
-            </Row>
-        </SellSection>
-    );
+	return (
+		<SellSection className="mt-4 py-5 px-sm-5 px-lg-2 px-xl-5">
+			<Row className="justify-content-between">
+				<Col xs={12} md={12} lg={5}>
+					<div className="px-5 py-3 py-sm-0 d-md-flex flex-md-column justify-content-md-center align-items-md-center d-lg-block">
+						<Title className="title text-lg-left mb-3 text-center font-weight-normal">Sell on zDrop</Title>
+						<div className="my-md-3 px-3 px-sm-0">
+							{texts.map((s) => {
+								console.log(s);
+								return (
+									<Text>
+										{' '}
+										<CheckIcon
+											className=""
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 30"
+											width="17"
+											height="24"
+										>
+											<path fill="none" d="M0 0h24v24H0z" />
+											<path
+												d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-.997-6l7.07-7.071-1.414-1.414-5.656 5.657-2.829-2.829-1.414 1.414L11.003 16z"
+												fill="rgba(185,255,220,1)"
+											/>
+										</CheckIcon>{' '}
+										{s?.text}
+									</Text>
+								);
+							})}
+						</div>
+					</div>
+				</Col>
+				<Col xs={12} md={12} lg={7} className="mt-sm-3">
+					<div className="button-box ">
+						<Button variant="black">Open Your Free Store Now</Button>
+						<Button variant="white">Log in to Seller Center</Button>
+					</div>
+				</Col>
+			</Row>
+		</SellSection>
+	);
 };
 
 export default SellOnZDrop;

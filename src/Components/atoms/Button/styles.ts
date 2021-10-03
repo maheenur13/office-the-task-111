@@ -2,7 +2,8 @@ import styled, { css } from 'styled-components';
 import { ButtonProps } from '.';
 
 export const ButtonWrapper = styled.button<ButtonProps>`
-	height: 45px;
+	min-height: 45px;
+	min-width: 220px;
 	padding: 0 25px;
 	font-weight: 500;
 	display: inline-block;
