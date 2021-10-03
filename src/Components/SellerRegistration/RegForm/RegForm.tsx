@@ -16,7 +16,7 @@ const RegForm: FC = () => {
 	};
 
 	return (
-		<FormSection className="px-5 py-4">
+		<FormSection className=" px-5 py-4">
 			<Title style={{ fontSize: '24px' }} className="text-left" variant="black" size="md">
 				Seller Registration
 			</Title>
@@ -128,7 +128,7 @@ const RegForm: FC = () => {
 };
 
 const FormSection = styled.div`
-	width: 448px;
+	width: 390px;
 	border-radius: 25px;
 	box-shadow: 0px 0px 6px #8a8a8a3d;
 	border: 1px solid #ececec;
@@ -141,7 +141,7 @@ const FormInput = styled.input`
 	width: 100%;
 	color: #2b2b2b;
 	padding: 0px 21px;
-	height: 45px;
+	height: 40px;
 
 	::placeholder {
 		color: #cbcbcb;
@@ -157,7 +157,7 @@ const FormSelect = styled.select`
 	border: 1px solid #cbcbcb;
 	color: #2b2b2b;
 	width: 100%;
-	height: 45px;
+	height: 40px;
 	-moz-appearance: none; /* Firefox */
 	-webkit-appearance: none; /* Safari and Chrome */
 	background-image: url('/images/arrow-down.svg');

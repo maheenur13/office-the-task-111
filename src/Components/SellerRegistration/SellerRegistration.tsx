@@ -8,9 +8,9 @@ const SellerRegistration: FC = () => {
 	return (
 		<RegistrationSection className="">
 			<Row className="mt-5 align-items-center">
-				<Col className="border" md={{ span: 3, offset: 1 }}>
-					<div className="">
-					<div className="mb-5 ">
+				<Col md={{ span: 3, offset: 1 }}>
+					<div className="p-2">
+					<div className="mb-4 ">
 						<img src="/images/logo.svg" alt="logo" />
 					</div>
 					<div>
@@ -58,25 +58,24 @@ const SellerRegistration: FC = () => {
 					</Row>
 					</div>
 				</Col>
-				<Col  className="border" md={{ span: 5, offset: 3 }}>
-					<FormContainer>
+				<Col md={{ span: 5, offset: 2 }}>
+					<FormContainer >
 						<RegForm />
 					</FormContainer>
 				</Col>
 			</Row>
 		</RegistrationSection>
+	
 	);
 };
 
 const RegistrationSection = styled.section`
-	
 	overflow: hidden;
 	background-image: url('/images/back-img.svg');
-	background-color: #fffffff9;
 	background-repeat: no-repeat;
-	background-position: fixed;
-	border: 2px solid green;
+	margin-left: 100px;
 	position: relative;
+	height: 100vh;
 
 	::before {
 		content: '';
@@ -91,11 +90,11 @@ const FormContainer = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-image: url('/images/form-bg.svg');
+	background-image: url('/images/form-bg.svg') ;
 	background-repeat: no-repeat;
-	background-position: fixed;
-	background-size: auto;
-	height: 100vh;
+	background-size:contain;
+	background-position:45%;
+	height: 94vh;
 `;
 
 export default SellerRegistration;
