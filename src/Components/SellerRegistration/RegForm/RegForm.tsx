@@ -4,15 +4,32 @@ import { Button, Title } from '../../atoms';
 
 const RegForm: FC = () => {
 	const [isSignIn, setIsSignIn] = useState(false);
+	// {
+	// 	storeName:false,
+	// 	accountType:false,
+	// 	productCategory:false,
+	// 	phoneNumber:false,
+	// 	verification:false,
+	// 	password:false,
+	// 	confirmPassword:false,
+	// 	info:false,
+		
+
+	// }
+	//storename account type product category phoneNumber verification password confirm password info button
 	const [isForgetPass, setIsForgetPass] = useState(false);
+	const [isCreateAccount, setCreateAccount] = useState(true);
 	const signInHandler = () => {
 		// setIsForgetPass(!isForgetPass);
+		setCreateAccount(!isCreateAccount)
 		setIsSignIn(!isSignIn);
 		console.log('clicked sign in');
 	};
 
 	const handleForgetPass = () => {
-		setIsForgetPass(!isForgetPass);
+
+		setIsForgetPass(true);
+		// setIsSignIn(false)
 	};
 
 	return (
@@ -20,11 +37,13 @@ const RegForm: FC = () => {
 			<Title style={{ fontSize: '24px' }} className="text-left" variant="black" size="md">
 				Seller Registration
 			</Title>
-			<p>
+			<p	
+			style={{cursor: 'pointer'}}
+			onClick={signInHandler}>
 				{!isSignIn ? `Already Have an account?` : `New User?`}
-				<span onClick={signInHandler} style={{ cursor: 'pointer' }} className="text-primary">
+				<span  style={{ cursor: 'pointer' }} className="text-primary">
 					{' '}
-					{!isSignIn ? `Sign in` : `Create an Account`}
+					{(((!isSignIn && !isForgetPass) && `Sign In`)) || (((isSignIn &&  !isForgetPass) && `Create An Account`)) || ((isSignIn && isForgetPass) && `Sign In`)}
 				</span>
 			</p>
 			<div>
@@ -35,7 +54,7 @@ const RegForm: FC = () => {
 							<FormInput />
 						</div>
 					)}
-					{isSignIn && (
+					{(isSignIn && !isCreateAccount)&& (
 						<div className="my-3">
 							<FormLabel>Phone Number</FormLabel>
 							<FormInput />
@@ -98,7 +117,7 @@ const RegForm: FC = () => {
 							<FormInput type="password" />
 						</div>
 					)}
-					{isSignIn && (
+					{isSignIn && !isForgetPass && (
 						<p
 							onClick={handleForgetPass}
 							style={{
@@ -118,7 +137,7 @@ const RegForm: FC = () => {
 					)}
 					<div className="my-3">
 						<Button type="submit" style={{ borderRadius: '10px' }} variant="black" className="w-100">
-							{!isSignIn ? `Register` : 'Sign In'}
+							{(isSignIn && !isForgetPass && `Sign In`) || (!isSignIn && `Register`) || (isForgetPass && `Send Code`)}
 						</Button>
 					</div>
 				</form>

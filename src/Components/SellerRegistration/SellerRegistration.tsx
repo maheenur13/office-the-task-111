@@ -6,8 +6,8 @@ import RegForm from './RegForm/RegForm';
 
 const SellerRegistration: FC = () => {
 	return (
-		<RegistrationSection className="">
-			<Row className="mt-5 align-items-center">
+		<RegistrationSection>
+			<Row className="mt-5 align-items-center w-100">
 				<Col className="pl-4" md={{ span: 3, offset: 1 }}>
 					<div className="p-2">
 						<div className="mb-4 ">
@@ -37,7 +37,7 @@ const SellerRegistration: FC = () => {
 							</p>
 						</div>
 						<div
-							className="mt-5 d-flex justify-content-between align-items-center"
+							className="mt-5 mb-5 d-flex justify-content-between align-items-center"
 						>
 							<div>
 								<Title className="text-left" size="sm" variant="black">
@@ -67,12 +67,12 @@ const SellerRegistration: FC = () => {
 };
 
 const RegistrationSection = styled.section`
-	overflow: hidden;
+	/* overflow: hidden; */
 	background-image: url('/images/back-img.svg');
 	background-repeat: no-repeat;
 	margin-left: 100px;
 	position: relative;
-	height: 100vh;
+	/* height: 100vh; */
 
 	::before {
 		content: '';
