@@ -1,9 +1,9 @@
-import React, { FC, MouseEvent, useState } from 'react';
+import React, { FC, FormEvent, FormEventHandler, MouseEvent, useState } from 'react';
 import styled from 'styled-components';
 import { Button, Title } from '../../atoms';
 
 const RegForm: FC = () => {
-	const [isSignIn, setIsSignIn] = useState(false);
+	const [oldUser, setOldUser] = useState(false);
 	const [isForgetPass, setIsForgetPass] = useState(false);
 	const [isCreateAccount, setCreateAccount] = useState(true);
 	const [isProceed, SetIsProceed] = useState(false);
@@ -11,7 +11,7 @@ const RegForm: FC = () => {
 	const [isChangePass, SetIsChangePass] = useState(false);
 
 	const signInHandler = () => {
-		setIsSignIn(true);
+		setOldUser(true);
 		setCreateAccount(false);
 		setIsForgetPass(false);
 		SetIsProceed(false);
@@ -20,27 +20,26 @@ const RegForm: FC = () => {
 	};
 
 	const createHandler = () => {
-		setIsSignIn(false);
+		setOldUser(false);
 		setCreateAccount(true);
 		setIsForgetPass(false);
 		SetIsProceed(false);
 		SetIsSendCode(false);
 		SetIsChangePass(false);
-		console.log('clicked sign in');
 
 	};
-
+	
 	const handleForgetPass = () => {
-		setIsSignIn(false);
+		setOldUser(false);
 		setCreateAccount(false);
-		setIsForgetPass(!isForgetPass);
+		setIsForgetPass(true);
 		SetIsProceed(false);
 		SetIsSendCode(false);
 		SetIsChangePass(false);
 	};
-	const sendCodehandler = () => {
+	const sendCodeHandler = () => {
 		SetIsSendCode(true);
-		setIsSignIn(false);
+		setOldUser(false);
 		setCreateAccount(false);
 		setIsForgetPass(false);
 		SetIsProceed(false);
@@ -50,54 +49,52 @@ const RegForm: FC = () => {
 
 	const proceedHandler = () => {
 		SetIsProceed(true);
-		setIsSignIn(false);
+		setOldUser(false);
 		setCreateAccount(false);
 		setIsForgetPass(false);
 		SetIsSendCode(false);
 		SetIsChangePass(false);
 	};
-	const changePasshandler = () => {
+	const changePassHandler = () => {
 		signInHandler();
 		console.log('password change successful!')
 	};
 
-	const handleSubmit = () => {
-
-	}
-	const handleSendCode = (e: MouseEvent) => {
-		// e.preventDefault();
-		console.log(e)
-		sendCodehandler();
-	}
-	const handleProceed = (e: any) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		console.log(e.target);
+	}
+	const handleSendCode = () => {
+		sendCodeHandler();
+	}
+	const handleProceed = () => {
 		proceedHandler();
 	}
 	return (
-		<FormSection className="  ">
+		<FormSection>
 			<Title style={{ fontSize: '1.3rem' }} className="text-left" variant="black" size="md">
 				Seller Registration
 			</Title>
 			{
-			((isCreateAccount && !isSignIn )||(isForgetPass || isSendCode || isProceed)) && <p onClick={signInHandler} className="my-3" style={{ cursor: 'pointer' }}>
+			((isCreateAccount && !oldUser )||(isForgetPass || isSendCode || isProceed)) && <p onClick={signInHandler} className="my-3" style={{ cursor: 'pointer' }}>
 				Already Have an account?
 				<span className="text-primary">{' '}Sign In</span>
 			</p>
 			}
 
-			{(isSignIn && !isCreateAccount)&& <p onClick={createHandler} className="my-3" style={{ cursor: 'pointer' }}>
+			{(oldUser && !isCreateAccount)&& <p onClick={createHandler} className="my-3" style={{ cursor: 'pointer' }}>
 				New User?
 				<span className="text-primary">{' '}Create An Account</span>
 			</p>}
 			<div>
-				<form>
+				<form onSubmit={handleSubmit}>
 					{isCreateAccount && (
 						<div className="my-3">
 							<FormLabel>Store Name</FormLabel>
 							<FormInput />
 						</div>
 					)}
-					{((isSignIn && !isCreateAccount) || (isForgetPass)) && (
+					{((oldUser && !isCreateAccount) || (isForgetPass)) && (
 						<div className="my-3">
 							<FormLabel>Phone Number</FormLabel>
 							<FormInput />
@@ -151,19 +148,19 @@ const RegForm: FC = () => {
 							{isSendCode && <h6 style={{cursor: 'pointer'}}>Send Again</h6>}
 						</div>
 					)}
-					{((!isForgetPass && isCreateAccount) ||(isProceed || isSignIn)) && (
+					{((!isForgetPass && isCreateAccount) ||(isProceed || oldUser)) && (
 						<div className="my-3">
 							<FormLabel>{isProceed && `New`} Password</FormLabel>
 							<FormInput type="password" />
 						</div>
 					)}
-					{((!isSignIn && !isForgetPass && isCreateAccount) || (isProceed)) && (
+					{((!oldUser && !isForgetPass && isCreateAccount) || (isProceed)) && (
 						<div className="mt-4 mb-3">
 							<FormLabel>Confirm Password</FormLabel>
 							<FormInput type="password" />
 						</div>
 					)}
-					{isSignIn && !isForgetPass && (
+					{oldUser && !isForgetPass && (
 						<p
 							onClick={handleForgetPass}
 							style={{
@@ -185,9 +182,9 @@ const RegForm: FC = () => {
 						</div>
 					)}
 					<div className="my-3">
-						{(!isForgetPass && !isSendCode && !isProceed) && <Button style={{ borderRadius: '10px' }} variant="black" className="w-100">
-							{(((isSignIn && !isForgetPass && !isCreateAccount ) && `Sign In`) ||
-								((!isSignIn && !isForgetPass && isCreateAccount ) && `Register`)
+						{(!isForgetPass && !isSendCode && !isProceed) && <Button style={{ borderRadius: '10px' }} type="submit" variant="black" className="w-100">
+							{(((oldUser && !isForgetPass && !isCreateAccount ) && `Sign In`) ||
+								((!oldUser && !isForgetPass && isCreateAccount ) && `Register`)
 								) }
 						</Button>}
 						{
@@ -201,7 +198,7 @@ const RegForm: FC = () => {
 						</Button>
 						}
 						{
-							(!isSendCode && isProceed) && <Button onClick={changePasshandler}  style={{ borderRadius: '10px' }} variant="black" className="w-100">
+							(!isSendCode && isProceed) && <Button onClick={changePassHandler}  style={{ borderRadius: '10px' }} variant="black" className="w-100">
 							Change Password
 						</Button>
 						}
