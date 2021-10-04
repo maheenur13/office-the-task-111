@@ -7,13 +7,13 @@ import RegForm from './RegForm/RegForm';
 const SellerRegistration: FC = () => {
 	return (
 		<RegistrationSection>
-			<Row className=" align-items-center w-100">
-				<Col className="pl-4" md={{ span: 3, offset: 1 }}>
+			<Row className=" align-items-center justify-content-center w-100">
+				<Col className="" md={5}>
 					<div className="p-2">
 						<div className="mb-4 ">
 							<img style={{ width: '8rem' }} src="/images/logo.svg" alt="logo" />
 						</div>
-						<div>
+						<div className="">
 							<p
 								style={{
 									fontSize: '1.7rem',
@@ -37,9 +37,9 @@ const SellerRegistration: FC = () => {
 							</p>
 						</div>
 						<div
-							className="mt-5 mb-5 d-flex justify-content-between align-items-center"
+							className="mt-5 mb-5 d-flex justify-content-start align-items-center"
 						>
-							<div>
+							<div className="mr-5">
 								<Title className="text-left" size="sm" variant="black">
 									Policies
 								</Title>
@@ -56,7 +56,7 @@ const SellerRegistration: FC = () => {
 						</div>
 					</div>
 				</Col>
-				<Col md={{ span: 5, offset: 2 }}>
+				<Col md={5}>
 					<FormContainer>
 						<RegForm />
 					</FormContainer>
@@ -74,6 +74,7 @@ const RegistrationSection = styled.section`
 	margin-left: 100px;
 	position: relative;
 	max-height: 100vh;
+	
 
 	::before {
 		content: '';

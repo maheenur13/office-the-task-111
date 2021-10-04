@@ -134,10 +134,10 @@ const RegForm: FC = () => {
 								}}
 								className="d-flex justify-content-between align-items-center px-4"
 							>
-								<p className="">+880</p>
+								<p style={{width:'20%',borderRight:'1px solid gray'}}>+880</p>
 								{(isCreateAccount || isSendCode) && <>
-								<FormInput style={{ border: 'none' }} />
-								<p>Send Code</p>
+								<FormInput style={{ border: 'none', width:'50%' }} />
+								<h6 style={{width:'30%',cursor: 'pointer'}}>Send Code</h6>
 								</>}
 							</div>
 						</div>
