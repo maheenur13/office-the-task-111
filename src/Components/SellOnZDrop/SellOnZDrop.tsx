@@ -6,7 +6,7 @@ import { texts } from './sellData';
 
 const SellOnZDrop: FC = () => {
 	return (
-		<SellSection className="mt-4 py-5 px-sm-5 px-lg-2 px-xl-5">
+		<SellSection className="mt-4 py-4 px-sm-5 px-lg-2 px-xl-5">
 			<Row className="justify-content-between">
 				<Col xs={12} md={12} lg={5}>
 					<div className="px-5 py-3 py-sm-0 d-md-flex flex-md-column justify-content-md-center align-items-md-center d-lg-block">

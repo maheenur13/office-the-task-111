@@ -9,7 +9,10 @@ const Selling: FC = () => {
 		<SellingContainer className=" py-4 px-md-5">
 			<div className="px-5">
 				<Row>
+					<div className=" m-auto d-flex flex-column justify-content-center align-items-center">
+					<img src='/images/human.png' alt='' />
 					<Title className="title mb-3 mb-sm-5 mx-auto font-weight-normal">Why sell on zDrop?</Title>
+					</div>
 					<Row>
 						{sellTextArray?.map((texts) => {
 							return (
@@ -29,9 +32,9 @@ const Selling: FC = () => {
 					</Row>
 				</Row>
 			</div>
-			<div className="py-2 px-md-5">
+			<div className="py-3 px-md-5">
 				<Title className="title my-4 mx-auto text-center font-weight-normal">How To Start Selling</Title>
-				<Row className="w-100 m-auto card-box">
+				<Row className="w-100 mt-5 mx-auto card-box">
 					{startSellingData?.map((data) => {
 						return (
 							<Col sm={6} xl={3} className="mb-3 mb-sm-0 selling-col">

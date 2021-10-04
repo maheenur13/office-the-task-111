@@ -1,4 +1,4 @@
-import React, { FC, FormEvent, FormEventHandler, MouseEvent, useState } from 'react';
+import React, { FC, FormEvent, useState } from 'react';
 import styled from 'styled-components';
 import { Button, Title } from '../../atoms';
 
@@ -230,6 +230,9 @@ const FormInput = styled.input`
 
 	::placeholder {
 		color: #cbcbcb;
+	}
+	:focus{
+		outline: none;
 	}
 `;
 const FormLabel = styled.label`

@@ -15,9 +15,9 @@ const helpSectionData = [
 
 const Help: FC = () => {
 	return (
-		<HelpContainer>
+		<HelpContainer className="mb-3">
 			<div className="back-image"></div>
-			<div className="py-5 px-3 px-md-5 px-lg-4 mb-3">
+			<div className="py-5 px-3 px-md-5 px-lg-4 mb-3 mb-md-0">
 				<Row className="justify-content-around">
 					<Col md={12} lg={5}>
 						{helpSectionData?.map((data) => {
