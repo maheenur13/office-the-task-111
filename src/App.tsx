@@ -8,6 +8,7 @@ import SellOnZDrop from './Components/SellOnZDrop/SellOnZDrop';
 import Tools from './Components/Tools/Tools';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import SellerRegistration from './Components/SellerRegistration/SellerRegistration';
+// import Demo from './Components/SellerRegistration/Demo';
 
 function App() {
 	return (
@@ -27,6 +28,9 @@ function App() {
 					<Route exact path="/reg">
 						<SellerRegistration />
 					</Route>
+					{/* <Route exact path="/demo">
+						<Demo/>
+					</Route> */}
 				</Switch>
 			</Router>
 		</AppContainer>

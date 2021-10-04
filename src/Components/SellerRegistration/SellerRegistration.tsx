@@ -7,7 +7,7 @@ import RegForm from './RegForm/RegForm';
 const SellerRegistration: FC = () => {
 	return (
 		<RegistrationSection>
-			<Row className="mt-5 align-items-center w-100">
+			<Row className=" align-items-center w-100">
 				<Col className="pl-4" md={{ span: 3, offset: 1 }}>
 					<div className="p-2">
 						<div className="mb-4 ">
@@ -70,9 +70,10 @@ const RegistrationSection = styled.section`
 	/* overflow: hidden; */
 	background-image: url('/images/back-img.svg');
 	background-repeat: no-repeat;
+	background-size: contain;
 	margin-left: 100px;
 	position: relative;
-	/* height: 100vh; */
+	max-height: 100vh;
 
 	::before {
 		content: '';
@@ -84,14 +85,16 @@ const RegistrationSection = styled.section`
 `;
 
 const FormContainer = styled.div`
+
+overflow: hidden;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	background-image: url('/images/form-bg.svg');
 	background-repeat: no-repeat;
 	background-size: 100% 92%;
-	background-position: 50%;
-	height: 94vh;
+	background-position:  55px 100%;
+	min-height: 100vh;
 `;
 
 export default SellerRegistration;
