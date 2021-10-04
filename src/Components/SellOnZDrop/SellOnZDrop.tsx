@@ -53,6 +53,7 @@ export default SellOnZDrop;
 const SellSection = styled.div`
 	background: var(--primary);
 	border-radius: 35px 35px 0px 0px;
+	position: relative;
 	@media only screen and (max-width: 1199px) {
 		.button-box {
 			margin-right: 35px;
@@ -87,6 +88,19 @@ const SellSection = styled.div`
 			}
 		}
 	}
+
+	::before {
+			content: '';
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			right: 0;
+			top: 0;
+			background-image: url('/images/green.svg');
+			background-repeat: no-repeat;
+			background-position:100%;
+
+		}
 `;
 const Text = styled.p`
 	color: var(--white);

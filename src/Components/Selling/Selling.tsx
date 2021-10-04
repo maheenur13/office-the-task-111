@@ -91,6 +91,7 @@ const SellingBox = styled.div`
 	color: var(--white);
 	min-height: 245px;
 	padding-top: 35px;
+	position: relative;
 
 	@media only screen and (max-width: 1199px) {
 		max-width: 285px;
@@ -103,6 +104,15 @@ const SellingBox = styled.div`
 	@media only screen and (max-width: 575px) {
 		max-width: 255px;
 		/* margin-bottom: 25px; */
+	}
+	::before {
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top:0;
+		right: 0;
+		background-image: url('/images/green.svg');
 	}
 `;
 const IconSvg = styled.h2`
