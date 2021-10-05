@@ -1,6 +1,18 @@
-import React, { FC, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FC, FormEvent, MouseEvent, MouseEventHandler, useState } from 'react';
 import styled from 'styled-components';
 import { Button, Title } from '../../atoms';
+import { useForm } from '../../../hooks/useForm';
+
+// type Gender = 'male' | 'female' | 'non-binary';
+
+interface User {
+	store: string;
+	accountType: string;
+	productCategory: string;
+	phone: number;
+	smsVerification: string;
+	password: string;
+}
 
 const RegForm: FC = () => {
 	const [oldUser, setOldUser] = useState(false);
@@ -9,6 +21,64 @@ const RegForm: FC = () => {
 	const [isProceed, SetIsProceed] = useState(false);
 	const [isSendCode, SetIsSendCode] = useState(false);
 	const [isChangePass, SetIsChangePass] = useState(false);
+
+	const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+		console.log(e.target.value);
+	};
+	const {
+		handleSubmit,
+		clickHandler,
+		handleChange,
+		data: user,
+		errors,
+	} = useForm<User>({
+		validations: {
+			store: {
+				pattern: {
+					value: '^[A-Za-z]*$',
+					message: "You're not allowed to use special characters or numbers in store.",
+				},
+			},
+			accountType: {
+				custom: {
+					isValid: (value) => value === '',
+					message: 'Please Select An option',
+				},
+			},
+			productCategory: {
+				custom: {
+					isValid: (value) => value === '',
+					message: 'Please Select An option',
+				},
+			},
+			phone: {
+				custom: {
+					isValid: (value) => parseInt(value, 10) > 11 || parseInt(value, 10) === null,
+					message: 'Please enter a valid number!',
+				},
+			},
+			smsVerification: {
+				custom: {
+					isValid: (value) => value === '',
+					message: 'Please Enter Verification number',
+				},
+			},
+			password: {
+				custom: {
+					isValid: (value) => value.length > 6,
+					message: 'The password needs to be at least 6 characters long.',
+				},
+			},
+			//   confirmPassword:{
+			// 	  custom: {
+			// 		  isValid: (value) => value.length >6,
+			// 		  message: 'Password did not matched',
+			// 	  }
+			//   }
+		},
+
+		onSubmit: () => handleSubmit,
+	});
 
 	const signInHandler = () => {
 		setOldUser(true);
@@ -26,9 +96,8 @@ const RegForm: FC = () => {
 		SetIsProceed(false);
 		SetIsSendCode(false);
 		SetIsChangePass(false);
-
 	};
-	
+
 	const handleForgetPass = () => {
 		setOldUser(false);
 		setCreateAccount(false);
@@ -43,7 +112,7 @@ const RegForm: FC = () => {
 		setCreateAccount(false);
 		setIsForgetPass(false);
 		SetIsProceed(false);
-		
+
 		SetIsChangePass(false);
 	};
 
@@ -55,55 +124,72 @@ const RegForm: FC = () => {
 		SetIsSendCode(false);
 		SetIsChangePass(false);
 	};
-	const changePassHandler = () => {
+
+	const changePassHandler = (e: any) => {
 		signInHandler();
-		console.log('password change successful!')
+		clickHandler(e)
+		console.log('password change successful!');
 	};
 
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		console.log(e.target);
-	}
-	const handleSendCode = () => {
+	const handleSendCode = (e: any) => {
+		clickHandler(e)
+		// handleSubmit('');
 		sendCodeHandler();
-	}
-	const handleProceed = () => {
+		
+		// handleSubmit;
+	};
+	const handleProceed = (e: any) => {
 		proceedHandler();
-	}
+		clickHandler(e)
+	};
 	return (
 		<FormSection>
 			<Title style={{ fontSize: '1.3rem' }} className="text-left" variant="black" size="md">
 				Seller Registration
 			</Title>
-			{
-			((isCreateAccount && !oldUser )||(isForgetPass || isSendCode || isProceed)) && <p onClick={signInHandler} className="my-3" style={{ cursor: 'pointer' }}>
-				Already Have an account?
-				<span className="text-primary">{' '}Sign In</span>
-			</p>
-			}
+			{((isCreateAccount && !oldUser) || isForgetPass || isSendCode || isProceed) && (
+				<p onClick={signInHandler} className="my-3" style={{ cursor: 'pointer' }}>
+					Already Have an account?
+					<span className="text-primary"> Sign In</span>
+				</p>
+			)}
 
-			{(oldUser && !isCreateAccount)&& <p onClick={createHandler} className="my-3" style={{ cursor: 'pointer' }}>
-				New User?
-				<span className="text-primary">{' '}Create An Account</span>
-			</p>}
+			{oldUser && !isCreateAccount && (
+				<p onClick={createHandler} className="my-3" style={{ cursor: 'pointer' }}>
+					New User?
+					<span className="text-primary"> Create An Account</span>
+				</p>
+			)}
 			<div>
 				<form onSubmit={handleSubmit}>
 					{isCreateAccount && (
 						<div className="my-3">
 							<FormLabel>Store Name</FormLabel>
-							<FormInput />
+							<FormInput value={user.store} onChange={handleChange('store')} required/>
+							{errors.store && <p className="text-danger">{errors.store}</p>}
 						</div>
 					)}
-					{((oldUser && !isCreateAccount) || (isForgetPass)) && (
+					{((oldUser && !isCreateAccount) || isForgetPass) && (
 						<div className="my-3">
 							<FormLabel>Phone Number</FormLabel>
-							<FormInput />
+							<FormInput
+								placeholder="Phone Number"
+								value={user.phone}
+								onChange={handleChange('phone')}
+								required
+							/>
+							{errors.phone && <p className="text-danger">{errors.phone}</p>}
 						</div>
 					)}
 					{isCreateAccount && (
 						<div className="my-3">
 							<FormLabel>Account Type</FormLabel>
-							<FormSelect className="px-3">
+							<FormSelect
+								value={user.accountType}
+								onChange={handleChange('accountType')}
+								className="px-3"
+								
+							>
 								<option selected disabled hidden>
 									select one
 								</option>
@@ -115,7 +201,12 @@ const RegForm: FC = () => {
 					{isCreateAccount && (
 						<div className="my-3">
 							<FormLabel>Product category</FormLabel>
-							<FormSelect className="px-3">
+							<FormSelect
+								value={user.productCategory}
+								onChange={handleChange('productCategory')}
+								className="px-3"
+								
+							>
 								<option selected disabled hidden>
 									select one
 								</option>
@@ -124,7 +215,7 @@ const RegForm: FC = () => {
 							</FormSelect>
 						</div>
 					)}
-					{(isCreateAccount || isSendCode ) && (
+					{(isCreateAccount || isSendCode) && (
 						<div className="my-3">
 							<FormLabel>Phone Number</FormLabel>
 							<div
@@ -134,30 +225,50 @@ const RegForm: FC = () => {
 								}}
 								className="d-flex justify-content-between align-items-center px-4"
 							>
-								<p style={{width:'20%',borderRight:'1px solid gray'}}>+880</p>
-								{(isCreateAccount || isSendCode) && <>
-								<FormInput style={{ border: 'none', width:'50%' }} />
-								<h6 style={{width:'30%',cursor: 'pointer'}}>Send Code</h6>
-								</>}
+								<p style={{ width: '20%', borderRight: '1px solid gray' }}>+880</p>
+								{(isCreateAccount || isSendCode) && (
+									<>
+										<FormInput
+											style={{ border: 'none', width: '50%' }}
+											value={user.phone}
+											onChange={handleChange('phone')}
+											required
+										/>
+										<h6 className="my-auto" style={{ width: '30%', cursor: 'pointer' }}>
+											Send Code
+										</h6>
+									</>
+								)}
 							</div>
 						</div>
 					)}
 					{(isCreateAccount || isSendCode) && (
-						<div style={{ borderRadius: '10px'}}className="mt-3 mb-4 d-flex align-items-center border">
-							<FormInput style={{border: 'none',width:'70%'}} placeholder="SMS Verification Code"  />
-							{isSendCode && <h6 style={{cursor: 'pointer'}}>Send Again</h6>}
+						<div style={{ borderRadius: '10px' }} className="mt-3 mb-4 d-flex align-items-center border">
+							<FormInput
+								style={{ border: 'none', width: '70%' }}
+								placeholder="SMS Verification Code"
+								value={user.smsVerification }
+								onChange={handleChange('smsVerification')}
+								required
+							/>
+							{isSendCode && <h6 style={{ cursor: 'pointer' }}>Send Again</h6>}
 						</div>
 					)}
-					{((!isForgetPass && isCreateAccount) ||(isProceed || oldUser)) && (
+					{((!isForgetPass && isCreateAccount) || isProceed || oldUser) && (
 						<div className="my-3">
 							<FormLabel>{isProceed && `New`} Password</FormLabel>
-							<FormInput type="password" />
+							<FormInput
+								value={user.password }
+								onChange={handleChange('password')}
+								type="password"
+								required
+							/>
 						</div>
 					)}
-					{((!oldUser && !isForgetPass && isCreateAccount) || (isProceed)) && (
+					{((!oldUser && !isForgetPass && isCreateAccount) || isProceed) && (
 						<div className="mt-4 mb-3">
 							<FormLabel>Confirm Password</FormLabel>
-							<FormInput type="password" />
+							<FormInput type="password" required />
 						</div>
 					)}
 					{oldUser && !isForgetPass && (
@@ -181,27 +292,52 @@ const RegForm: FC = () => {
 							</p>
 						</div>
 					)}
-					<div className="my-3">
-						{(!isForgetPass && !isSendCode && !isProceed) && <Button style={{ borderRadius: '10px' }} type="submit" variant="black" className="w-100">
-							{(((oldUser && !isForgetPass && !isCreateAccount ) && `Sign In`) ||
-								((!oldUser && !isForgetPass && isCreateAccount ) && `Register`)
-								) }
-						</Button>}
-						{
-							(isForgetPass) && <Button onClick={handleSendCode}  style={{ borderRadius: '10px' }} variant="black" className="w-100">
-							Send Code
-						</Button>
-						}
-						{
-							(isSendCode) && <Button onClick={handleProceed} style={{ borderRadius: '10px' }} variant="black" className="w-100">
-							Proceed
-						</Button>
-						}
-						{
-							(!isSendCode && isProceed) && <Button onClick={changePassHandler}  style={{ borderRadius: '10px' }} variant="black" className="w-100">
-							Change Password
-						</Button>
-						}
+					<div className="mt-3">
+						{!isForgetPass && !isSendCode && !isProceed && (
+							<Button
+								onClick={clickHandler}
+								style={{ borderRadius: '10px' }}
+								type="submit"
+								variant="black"
+								className="w-100"
+							>
+								{(oldUser && !isForgetPass && !isCreateAccount && `Sign In`) ||
+									(!oldUser && !isForgetPass && isCreateAccount && `Register`)}
+							</Button>
+						)}
+						{isForgetPass && (
+							<Button
+								onClick={handleSendCode}
+								style={{ borderRadius: '10px' }}
+								variant="black"
+								className="w-100"
+								type="submit"
+							>
+								Send Code
+							</Button>
+						)}
+						{isSendCode && (
+							<Button
+								onClick={handleProceed}
+								style={{ borderRadius: '10px' }}
+								variant="black"
+								className="w-100"
+								type="submit"
+							>
+								Proceed
+							</Button>
+						)}
+						{!isSendCode && isProceed && (
+							<Button
+								onClick={changePassHandler}
+								style={{ borderRadius: '10px' }}
+								variant="black"
+								className="w-100"
+								type="submit"
+							>
+								Change Password
+							</Button>
+						)}
 					</div>
 				</form>
 			</div>
@@ -218,6 +354,16 @@ const FormSection = styled.div`
 	margin-left: 125px;
 
 	padding: 24px 30px;
+	@media only screen and (max-width: 425px) {
+		width: 95%;
+		padding: 24px 30px;
+	}
+	@media only screen and (max-width: 768px) {
+		padding: 18px 25px;
+	}
+	@media only screen and (max-width: 1440px) {
+		margin-left: 0px;
+	}
 `;
 
 const FormInput = styled.input`
@@ -231,7 +377,7 @@ const FormInput = styled.input`
 	::placeholder {
 		color: #cbcbcb;
 	}
-	:focus{
+	:focus {
 		outline: none;
 	}
 `;
