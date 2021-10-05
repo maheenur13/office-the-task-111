@@ -1,7 +1,6 @@
 import React, { ChangeEvent, FC, FormEvent, MouseEvent, MouseEventHandler, useState } from 'react';
 import styled from 'styled-components';
 import { Button, Title } from '../../atoms';
-import { useForm } from '../../../hooks/useForm';
 
 // type Gender = 'male' | 'female' | 'non-binary';
 
@@ -22,62 +21,14 @@ const RegForm: FC = () => {
 	const [isSendCode, SetIsSendCode] = useState(false);
 	const [isChangePass, SetIsChangePass] = useState(false);
 
-	const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
-		console.log(e.target.value);
-	};
-	const {
-		handleSubmit,
-		clickHandler,
-		handleChange,
-		data: user,
-		errors,
-	} = useForm<User>({
-		validations: {
-			store: {
-				pattern: {
-					value: '^[A-Za-z]*$',
-					message: "You're not allowed to use special characters or numbers in store.",
-				},
-			},
-			accountType: {
-				custom: {
-					isValid: (value) => value === '',
-					message: 'Please Select An option',
-				},
-			},
-			productCategory: {
-				custom: {
-					isValid: (value) => value === '',
-					message: 'Please Select An option',
-				},
-			},
-			phone: {
-				custom: {
-					isValid: (value) => parseInt(value, 10) > 11 || parseInt(value, 10) === null,
-					message: 'Please enter a valid number!',
-				},
-			},
-			smsVerification: {
-				custom: {
-					isValid: (value) => value === '',
-					message: 'Please Enter Verification number',
-				},
-			},
-			password: {
-				custom: {
-					isValid: (value) => value.length > 6,
-					message: 'The password needs to be at least 6 characters long.',
-				},
-			},
-			//   confirmPassword:{
-			// 	  custom: {
-			// 		  isValid: (value) => value.length >6,
-			// 		  message: 'Password did not matched',
-			// 	  }
-			//   }
-		},
+	const [user, setUser] = useState<User>({
+		store:'',
+		accountType:'',
+		productCategory:'',
+		phone:NaN,
+		smsVerification:'',
+		password:''
 
-		onSubmit: () => handleSubmit,
 	});
 
 	const signInHandler = () => {
@@ -127,12 +78,12 @@ const RegForm: FC = () => {
 
 	const changePassHandler = (e: any) => {
 		signInHandler();
-		clickHandler(e)
+		// clickHandler(e)
 		console.log('password change successful!');
 	};
 
 	const handleSendCode = (e: any) => {
-		clickHandler(e)
+		// clickHandler(e)
 		// handleSubmit('');
 		sendCodeHandler();
 		
@@ -140,7 +91,7 @@ const RegForm: FC = () => {
 	};
 	const handleProceed = (e: any) => {
 		proceedHandler();
-		clickHandler(e)
+		// clickHandler(e)
 	};
 	return (
 		<FormSection>
@@ -161,12 +112,12 @@ const RegForm: FC = () => {
 				</p>
 			)}
 			<div>
-				<form onSubmit={handleSubmit}>
+				<form >
 					{isCreateAccount && (
 						<div className="my-3">
 							<FormLabel>Store Name</FormLabel>
-							<FormInput value={user.store} onChange={handleChange('store')} required/>
-							{errors.store && <p className="text-danger">{errors.store}</p>}
+							<FormInput type="text" required/>
+							
 						</div>
 					)}
 					{((oldUser && !isCreateAccount) || isForgetPass) && (
@@ -174,21 +125,16 @@ const RegForm: FC = () => {
 							<FormLabel>Phone Number</FormLabel>
 							<FormInput
 								placeholder="Phone Number"
-								value={user.phone}
-								onChange={handleChange('phone')}
+								type="number"
 								required
 							/>
-							{errors.phone && <p className="text-danger">{errors.phone}</p>}
 						</div>
 					)}
 					{isCreateAccount && (
 						<div className="my-3">
 							<FormLabel>Account Type</FormLabel>
 							<FormSelect
-								value={user.accountType}
-								onChange={handleChange('accountType')}
 								className="px-3"
-								
 							>
 								<option selected disabled hidden>
 									select one
@@ -202,10 +148,7 @@ const RegForm: FC = () => {
 						<div className="my-3">
 							<FormLabel>Product category</FormLabel>
 							<FormSelect
-								value={user.productCategory}
-								onChange={handleChange('productCategory')}
 								className="px-3"
-								
 							>
 								<option selected disabled hidden>
 									select one
@@ -230,8 +173,7 @@ const RegForm: FC = () => {
 									<>
 										<FormInput
 											style={{ border: 'none', width: '50%' }}
-											value={user.phone}
-											onChange={handleChange('phone')}
+											type="number"
 											required
 										/>
 										<h6 className="my-auto" style={{ width: '30%', cursor: 'pointer' }}>
@@ -247,8 +189,7 @@ const RegForm: FC = () => {
 							<FormInput
 								style={{ border: 'none', width: '70%' }}
 								placeholder="SMS Verification Code"
-								value={user.smsVerification }
-								onChange={handleChange('smsVerification')}
+								type="text"
 								required
 							/>
 							{isSendCode && <h6 style={{ cursor: 'pointer' }}>Send Again</h6>}
@@ -258,8 +199,6 @@ const RegForm: FC = () => {
 						<div className="my-3">
 							<FormLabel>{isProceed && `New`} Password</FormLabel>
 							<FormInput
-								value={user.password }
-								onChange={handleChange('password')}
 								type="password"
 								required
 							/>
@@ -268,7 +207,7 @@ const RegForm: FC = () => {
 					{((!oldUser && !isForgetPass && isCreateAccount) || isProceed) && (
 						<div className="mt-4 mb-3">
 							<FormLabel>Confirm Password</FormLabel>
-							<FormInput type="password" required />
+							<FormInput type="password" required/>
 						</div>
 					)}
 					{oldUser && !isForgetPass && (
@@ -295,7 +234,7 @@ const RegForm: FC = () => {
 					<div className="mt-3">
 						{!isForgetPass && !isSendCode && !isProceed && (
 							<Button
-								onClick={clickHandler}
+								
 								style={{ borderRadius: '10px' }}
 								type="submit"
 								variant="black"
@@ -333,7 +272,6 @@ const RegForm: FC = () => {
 								style={{ borderRadius: '10px' }}
 								variant="black"
 								className="w-100"
-								type="submit"
 							>
 								Change Password
 							</Button>
@@ -373,6 +311,16 @@ const FormInput = styled.input`
 	color: #2b2b2b;
 	padding: 0px 17px;
 	height: 43px;
+	::-webkit-outer-spin-button,
+	::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
 	::placeholder {
 		color: #cbcbcb;
