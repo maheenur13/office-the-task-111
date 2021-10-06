@@ -30,7 +30,7 @@ const RegForm: FC = () => {
 		checkStartNumber: true,
 		isPassHasNum: true,
 		isPassEmpty: true,
-		isPassConfirmed: false,
+		isPassConfirmed: true,
 		isInputDisable:true,
 	});
 
@@ -217,6 +217,8 @@ const RegForm: FC = () => {
 			}
 		}
 		}
+
+		//confirm password validation
 		if (inputName === 'confirmPassword') {
 			const currentPassword = { ...userData };
 
@@ -227,22 +229,12 @@ const RegForm: FC = () => {
 				currentPassword.confirmPassword = value;
 				setUserData(currentPassword);
 			} else {
-				if (currentPassword.password.length === 0) {
-					const isEmptyPass = { ...errors };
-					isEmptyPass.isPassEmpty = true;
-					setErrors(isEmptyPass);
-				}
-				else {
-					const isEmptyPass = { ...errors };
-					isEmptyPass.isPassEmpty = false;
-					setErrors(isEmptyPass);
 				const confirmPassword = { ...errors };
 				confirmPassword.isPassConfirmed = false;
 				setErrors(confirmPassword);
+				console.log(false);
 				}
-			}
 		}
-		// }
 	};
 	return (
 		<FormSection>
@@ -385,10 +377,10 @@ const RegForm: FC = () => {
 							name="confirmPassword" 
 							disabled={!isInputEnable}
 							required />
-							{errors?.isPassConfirmed ? (
+							{(errors?.isPassConfirmed && userData.password === userData.confirmPassword && userData.confirmPassword.length !== 0) ? (
 								<p className="text-success">Password matched</p>
 							) : (
-								<p className="text-danger">{!errors.isPassEmpty && `Password Didn't Matched`}</p>
+								<p className="text-danger">{(errors.isPassConfirmed === false && userData.password.length !==0) &&  `Password Didn't Matched`}</p>
 							)}
 						</div>
 					)}
