@@ -73,9 +73,29 @@ const RegForm: FC = () => {
 		setCreateAccount(false);
 		setIsForgetPass(false);
 		SetIsProceed(false);
-
 		SetIsChangePass(false);
+
+
+		
+			
+		
 	};
+	const phoneVerification = () => {
+		let count =60;
+		let timer = 2;
+		const setTime =() => {setInterval(function(){
+			count --;
+			console.log(count)
+			if(count === 0){
+				
+				// clearInterval(setTime);
+				// return 0;
+			}
+			 console.log('hello') 
+			}, 1000);
+		}
+		// setTime();
+	}
 
 	const proceedHandler = () => {
 		SetIsProceed(true);
@@ -202,7 +222,6 @@ const RegForm: FC = () => {
 					const isEmptyPass = { ...errors };
 					isEmptyPass.isPassEmpty = false;
 					setErrors(isEmptyPass);
-				console.log('password didnt matched');
 				const confirmPassword = { ...errors };
 				confirmPassword.isPassConfirmed = false;
 				setErrors(confirmPassword);
@@ -303,7 +322,7 @@ const RegForm: FC = () => {
 											onChange={handleFormValid}
 										/>
 
-										<h6 className="my-auto" style={{ width: '30%', cursor: 'pointer' }}>
+										<h6 onClick={phoneVerification} className="my-auto" style={{ width: '30%', cursor: 'pointer' }}>
 											Send Code
 										</h6>
 									</>
