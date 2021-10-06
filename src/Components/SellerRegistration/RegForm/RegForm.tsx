@@ -20,6 +20,8 @@ const RegForm: FC = () => {
 	const [isProceed, SetIsProceed] = useState(false);
 	const [isSendCode, SetIsSendCode] = useState(false);
 	const [isChangePass, SetIsChangePass] = useState(false);
+	const [isInputEnable , setIsInputEnable] = useState(false);
+
 	const [errors, setErrors] = useState({
 		storeName: true,
 		phone: true,
@@ -29,6 +31,7 @@ const RegForm: FC = () => {
 		isPassHasNum: true,
 		isPassEmpty: true,
 		isPassConfirmed: false,
+		isInputDisable:true,
 	});
 
 	const [userData, setUserData] = useState<User>({
@@ -85,13 +88,11 @@ const RegForm: FC = () => {
 		let timer = 2;
 		const setTime =() => {setInterval(function(){
 			count --;
-			console.log(count)
 			if(count === 0){
 				
 				// clearInterval(setTime);
 				// return 0;
 			}
-			 console.log('hello') 
 			}, 1000);
 		}
 		// setTime();
@@ -109,7 +110,6 @@ const RegForm: FC = () => {
 	const changePassHandler = (e: any) => {
 		handleFormSubmit();
 		signInHandler();
-		console.log('password change successful!');
 	};
 
 	const handleSendCode = (e: any) => {
@@ -122,7 +122,7 @@ const RegForm: FC = () => {
 	};
 
 	const handleFormSubmit = () => {
-		console.log('form submitted');
+		console.log('submitted form successfully');
 	};
 
 	const handleFormValid = (e: ChangeEvent<HTMLInputElement>) => {
@@ -130,6 +130,8 @@ const RegForm: FC = () => {
 		let isFieldValid = true;
 		let checkStartNumber;
 		const value = e.target.value;
+
+		//store Name validation
 		if (inputName === 'storeName') {
 			if (value.length <= 0) {
 				const checkStoreName = { ...errors };
@@ -145,6 +147,7 @@ const RegForm: FC = () => {
 			}
 		}
 
+		//phone number validation
 		if (inputName === 'phoneNumber') {
 			if (value === '') {
 				const isPhoneValid = { ...errors };
@@ -176,10 +179,21 @@ const RegForm: FC = () => {
 				}
 			}
 		}
+
+		//password validation
 		if (inputName === 'password') {
+			if(value.length === 0){
+			setIsInputEnable(false);
+			}
+			if(value.length > 0) {
+				setIsInputEnable(true);
+				const isInputDisable = { ...errors };
+				isInputDisable.isInputDisable = false;
+				setErrors(isInputDisable);
+
+
 			const checkPassLength = passValidation(value.length);
 			const isPassHasNum = /\d{1}/.test(value);
-			console.log(checkPassLength);
 			if (!checkPassLength) {
 				const passValid = { ...errors };
 				passValid.password = false;
@@ -198,15 +212,15 @@ const RegForm: FC = () => {
 					setErrors(passValid);
 					const userPass = { ...userData };
 					userPass.password = value;
-					console.log('typed', value);
 					setUserData(userPass);
 				}
 			}
 		}
+		}
 		if (inputName === 'confirmPassword') {
 			const currentPassword = { ...userData };
 
-			if (currentPassword?.password === value) {
+			if (currentPassword?.password === value && currentPassword.password.length !== 0) {
 				const confirmPassword = { ...errors };
 				confirmPassword.isPassConfirmed = true;
 				setErrors(confirmPassword);
@@ -230,7 +244,6 @@ const RegForm: FC = () => {
 		}
 		// }
 	};
-	console.log(userData);
 	return (
 		<FormSection>
 			<Title style={{ fontSize: '1.3rem' }} className="text-left" variant="black" size="md">
@@ -361,13 +374,17 @@ const RegForm: FC = () => {
 										(!errors.isPassHasNum && `Your password must contain 1 number!`)}
 								</p>
 							)}
-							{console.log('check pass pass this', errors.password)}
 						</div>
 					)}
 					{((!oldUser && !isForgetPass && isCreateAccount) || isProceed) && (
 						<div className="mt-4 mb-3">
 							<FormLabel>Confirm Password</FormLabel>
-							<FormInput type="password" onChange={handleFormValid} name="confirmPassword" required />
+							<FormInput
+							type="password"
+							onChange={handleFormValid} 
+							name="confirmPassword" 
+							disabled={!isInputEnable}
+							required />
 							{errors?.isPassConfirmed ? (
 								<p className="text-success">Password matched</p>
 							) : (
