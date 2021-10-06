@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { passValidation } from '../../../helpers/passValidation';
 import { Button, Title } from '../../atoms';
 
-// type Gender = 'male' | 'female' | 'non-binary';
-
 interface User {
 	store: string;
 	accountType: string;
@@ -91,22 +89,16 @@ const RegForm: FC = () => {
 	const changePassHandler = (e: any) => {
 		handleFormSubmit();
 		signInHandler();
-		// clickHandler(e)
 		console.log('password change successful!');
 	};
 
 	const handleSendCode = (e: any) => {
-		// clickHandler(e)
-		// handleSubmit('');
 		handleFormSubmit();
 		sendCodeHandler();
-
-		// handleSubmit;
 	};
 	const handleProceed = (e: any) => {
 		handleFormSubmit();
 		proceedHandler();
-		// clickHandler(e)
 	};
 
 	const handleFormSubmit = () => {
