@@ -1,5 +1,6 @@
-import React, { ChangeEvent, FC, FormEvent, MouseEvent, MouseEventHandler, useState } from 'react';
+import React, { ChangeEvent, FC, useState } from 'react';
 import styled from 'styled-components';
+import { passValidation } from '../../../helpers/passValidation';
 import { Button, Title } from '../../atoms';
 
 // type Gender = 'male' | 'female' | 'non-binary';
@@ -8,9 +9,10 @@ interface User {
 	store: string;
 	accountType: string;
 	productCategory: string;
-	phone: number;
+	phone: string;
 	smsVerification: string;
 	password: string;
+	confirmPassword: string;
 }
 
 const RegForm: FC = () => {
@@ -20,15 +22,25 @@ const RegForm: FC = () => {
 	const [isProceed, SetIsProceed] = useState(false);
 	const [isSendCode, SetIsSendCode] = useState(false);
 	const [isChangePass, SetIsChangePass] = useState(false);
+	const [errors, setErrors] = useState({
+		storeName: true,
+		phone: true,
+		password: true,
+		confirmPassword: true,
+		checkStartNumber: true,
+		isPassHasNum: true,
+		isPassEmpty: true,
+		isPassConfirmed: false,
+	});
 
-	const [user, setUser] = useState<User>({
-		store:'',
-		accountType:'',
-		productCategory:'',
-		phone:NaN,
-		smsVerification:'',
-		password:''
-
+	const [userData, setUserData] = useState<User>({
+		store: '',
+		accountType: '',
+		productCategory: '',
+		phone: '',
+		smsVerification: '',
+		password: '',
+		confirmPassword: '',
 	});
 
 	const signInHandler = () => {
@@ -77,6 +89,7 @@ const RegForm: FC = () => {
 	};
 
 	const changePassHandler = (e: any) => {
+		handleFormSubmit();
 		signInHandler();
 		// clickHandler(e)
 		console.log('password change successful!');
@@ -85,39 +98,159 @@ const RegForm: FC = () => {
 	const handleSendCode = (e: any) => {
 		// clickHandler(e)
 		// handleSubmit('');
+		handleFormSubmit();
 		sendCodeHandler();
-		
+
 		// handleSubmit;
 	};
 	const handleProceed = (e: any) => {
+		handleFormSubmit();
 		proceedHandler();
 		// clickHandler(e)
 	};
+
+	const handleFormSubmit = () => {
+		console.log('form submitted');
+	};
+
+	const handleFormValid = (e: ChangeEvent<HTMLInputElement>) => {
+		const inputName = e.target.name;
+		let isFieldValid = true;
+		let checkStartNumber;
+		const value = e.target.value;
+		if (inputName === 'storeName') {
+			if (value.length <= 0) {
+				const checkStoreName = { ...errors };
+				checkStoreName.storeName = false;
+				setErrors(checkStoreName);
+			} else {
+				const checkStoreName = { ...errors };
+				checkStoreName.storeName = true;
+				setErrors(checkStoreName);
+				const currentData = { ...userData };
+				currentData.store = value;
+				setUserData(currentData);
+			}
+		}
+
+		if (inputName === 'phoneNumber') {
+			if (value === '') {
+				const isPhoneValid = { ...errors };
+				isPhoneValid.checkStartNumber = true;
+				setErrors(isPhoneValid);
+			} else {
+				checkStartNumber = /^[1-1][0-9]*$/.test(e.target.value);
+				isFieldValid = /^[0-9]{10}$/.test(e.target.value);
+				if (checkStartNumber === false) {
+					const isPhoneValid = { ...errors };
+					isPhoneValid.checkStartNumber = false;
+					setErrors(isPhoneValid);
+				} else if (checkStartNumber === true) {
+					const isPhoneValid = { ...errors };
+					isPhoneValid.checkStartNumber = true;
+					setErrors(isPhoneValid);
+					if (isFieldValid === true) {
+						const phoneValid = { ...errors };
+						phoneValid.phone = true;
+						setErrors(phoneValid);
+						const currentData = { ...userData };
+						currentData.phone = value;
+						setUserData(currentData);
+					} else if (isFieldValid === false) {
+						const phoneValid = { ...errors };
+						phoneValid.phone = false;
+						setErrors(phoneValid);
+					}
+				}
+			}
+		}
+		if (inputName === 'password') {
+			const checkPassLength = passValidation(value.length);
+			const isPassHasNum = /\d{1}/.test(value);
+			console.log(checkPassLength);
+			if (!checkPassLength) {
+				const passValid = { ...errors };
+				passValid.password = false;
+				setErrors(passValid);
+			} else if (checkPassLength) {
+				if (!isPassHasNum) {
+					const passValid = { ...errors };
+					passValid.password = true;
+					passValid.isPassHasNum = false;
+					setErrors(passValid);
+				}
+				if (isPassHasNum) {
+					const passValid = { ...errors };
+					passValid.isPassHasNum = true;
+					passValid.password = true;
+					setErrors(passValid);
+					const userPass = { ...userData };
+					userPass.password = value;
+					console.log('typed', value);
+					setUserData(userPass);
+				}
+			}
+		}
+		if (inputName === 'confirmPassword') {
+			const currentPassword = { ...userData };
+
+			if (currentPassword?.password === value) {
+				const confirmPassword = { ...errors };
+				confirmPassword.isPassConfirmed = true;
+				setErrors(confirmPassword);
+				currentPassword.confirmPassword = value;
+				setUserData(currentPassword);
+			} else {
+				if (currentPassword.password.length === 0) {
+					const isEmptyPass = { ...errors };
+					isEmptyPass.isPassEmpty = true;
+					setErrors(isEmptyPass);
+				}
+				else {
+					const isEmptyPass = { ...errors };
+					isEmptyPass.isPassEmpty = false;
+					setErrors(isEmptyPass);
+				console.log('password didnt matched');
+				const confirmPassword = { ...errors };
+				confirmPassword.isPassConfirmed = false;
+				setErrors(confirmPassword);
+				}
+			}
+		}
+		// }
+	};
+	console.log(userData);
 	return (
 		<FormSection>
 			<Title style={{ fontSize: '1.3rem' }} className="text-left" variant="black" size="md">
 				Seller Registration
 			</Title>
 			{((isCreateAccount && !oldUser) || isForgetPass || isSendCode || isProceed) && (
-				<p onClick={signInHandler} className="my-3" style={{ cursor: 'pointer' }}>
+				<p onClick={signInHandler} className="my-3" style={{ cursor: 'pointer', fontSize: '.8rem' }}>
 					Already Have an account?
-					<span className="text-primary"> Sign In</span>
+					<span style={{ fontSize: '.8rem' }} className="text-primary">
+						{' '}
+						Sign In
+					</span>
 				</p>
 			)}
 
 			{oldUser && !isCreateAccount && (
-				<p onClick={createHandler} className="my-3" style={{ cursor: 'pointer' }}>
+				<p onClick={createHandler} className="my-3" style={{ cursor: 'pointer', fontSize: '.8rem' }}>
 					New User?
-					<span className="text-primary"> Create An Account</span>
+					<span style={{ fontSize: '.8rem' }} className="text-primary">
+						{' '}
+						Create An Account
+					</span>
 				</p>
 			)}
 			<div>
-				<form >
+				<form onSubmit={handleFormSubmit}>
 					{isCreateAccount && (
 						<div className="my-3">
 							<FormLabel>Store Name</FormLabel>
-							<FormInput type="text" required/>
-							
+							<FormInput name="storeName" onChange={handleFormValid} type="text" required />
+							{!errors.storeName && <p className="text-danger">Please Write Your Store Name!</p>}
 						</div>
 					)}
 					{((oldUser && !isCreateAccount) || isForgetPass) && (
@@ -127,15 +260,16 @@ const RegForm: FC = () => {
 								placeholder="Phone Number"
 								type="number"
 								required
+								name="phoneNumber"
+								onChange={handleFormValid}
 							/>
+							{errors.phone === false && <p className="text-danger">Phone Number must be 11 digit.</p>}
 						</div>
 					)}
 					{isCreateAccount && (
 						<div className="my-3">
 							<FormLabel>Account Type</FormLabel>
-							<FormSelect
-								className="px-3"
-							>
+							<FormSelect className="px-3">
 								<option selected disabled hidden>
 									select one
 								</option>
@@ -147,9 +281,7 @@ const RegForm: FC = () => {
 					{isCreateAccount && (
 						<div className="my-3">
 							<FormLabel>Product category</FormLabel>
-							<FormSelect
-								className="px-3"
-							>
+							<FormSelect className="px-3">
 								<option selected disabled hidden>
 									select one
 								</option>
@@ -175,13 +307,24 @@ const RegForm: FC = () => {
 											style={{ border: 'none', width: '50%' }}
 											type="number"
 											required
+											name="phoneNumber"
+											onChange={handleFormValid}
 										/>
+
 										<h6 className="my-auto" style={{ width: '30%', cursor: 'pointer' }}>
 											Send Code
 										</h6>
 									</>
 								)}
 							</div>
+
+							{(errors.phone === false || errors.checkStartNumber === false) && (
+								<p className="text-danger">
+									{errors.checkStartNumber === false
+										? `Second digit must be 1`
+										: `Phone Number must be 11 digit!`}
+								</p>
+							)}
 						</div>
 					)}
 					{(isCreateAccount || isSendCode) && (
@@ -191,6 +334,8 @@ const RegForm: FC = () => {
 								placeholder="SMS Verification Code"
 								type="text"
 								required
+								name="verificationCode"
+								onChange={handleFormValid}
 							/>
 							{isSendCode && <h6 style={{ cursor: 'pointer' }}>Send Again</h6>}
 						</div>
@@ -198,16 +343,25 @@ const RegForm: FC = () => {
 					{((!isForgetPass && isCreateAccount) || isProceed || oldUser) && (
 						<div className="my-3">
 							<FormLabel>{isProceed && `New`} Password</FormLabel>
-							<FormInput
-								type="password"
-								required
-							/>
+							<FormInput type="password" required name="password" onChange={handleFormValid} />
+							{(!errors.password || !errors.isPassHasNum) && (
+								<p className="text-danger">
+									{(!errors.password && `Password Needs minimum 8 characters!`) ||
+										(!errors.isPassHasNum && `Your password must contain 1 number!`)}
+								</p>
+							)}
+							{console.log('check pass pass this', errors.password)}
 						</div>
 					)}
 					{((!oldUser && !isForgetPass && isCreateAccount) || isProceed) && (
 						<div className="mt-4 mb-3">
 							<FormLabel>Confirm Password</FormLabel>
-							<FormInput type="password" required/>
+							<FormInput type="password" onChange={handleFormValid} name="confirmPassword" required />
+							{errors?.isPassConfirmed ? (
+								<p className="text-success">Password matched</p>
+							) : (
+								<p className="text-danger">{!errors.isPassEmpty && `Password Didn't Matched`}</p>
+							)}
 						</div>
 					)}
 					{oldUser && !isForgetPass && (
@@ -234,11 +388,11 @@ const RegForm: FC = () => {
 					<div className="mt-3">
 						{!isForgetPass && !isSendCode && !isProceed && (
 							<Button
-								
 								style={{ borderRadius: '10px' }}
 								type="submit"
 								variant="black"
 								className="w-100"
+								disabled={true}
 							>
 								{(oldUser && !isForgetPass && !isCreateAccount && `Sign In`) ||
 									(!oldUser && !isForgetPass && isCreateAccount && `Register`)}
@@ -250,7 +404,6 @@ const RegForm: FC = () => {
 								style={{ borderRadius: '10px' }}
 								variant="black"
 								className="w-100"
-								type="submit"
 							>
 								Send Code
 							</Button>
@@ -261,7 +414,6 @@ const RegForm: FC = () => {
 								style={{ borderRadius: '10px' }}
 								variant="black"
 								className="w-100"
-								type="submit"
 							>
 								Proceed
 							</Button>
@@ -313,14 +465,14 @@ const FormInput = styled.input`
 	height: 43px;
 	::-webkit-outer-spin-button,
 	::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
+		-webkit-appearance: none;
+		margin: 0;
+	}
 
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
-}
+	/* Firefox */
+	input[type='number'] {
+		-moz-appearance: textfield;
+	}
 
 	::placeholder {
 		color: #cbcbcb;
@@ -331,8 +483,9 @@ input[type=number] {
 `;
 const FormLabel = styled.label`
 	display: block;
-	font-weight: bold;
-	font-size: 0.7rem;
+	/* font-weigh5: bold; */
+	font-weight: 500;
+	font-size: 0.8rem;
 `;
 
 const FormSelect = styled.select`

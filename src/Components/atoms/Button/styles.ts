@@ -37,4 +37,9 @@ export const ButtonWrapper = styled.button<ButtonProps>`
 	& + & {
 		margin-left: 20px;
 	}
+	:disabled,
+	[disabled]{
+		background-color: #959595;
+		cursor:not-allowed;
+	}
 `;

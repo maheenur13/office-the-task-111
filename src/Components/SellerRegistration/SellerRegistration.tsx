@@ -39,7 +39,7 @@ const SellerRegistration: FC = () => {
 								online powered by <br /> creativity and <br /> innovation.
 							</p>
 						</div>
-						<div className="mt-5 mb-5 d-flex flex-wrap justify-content-md-start justify-content-center align-items-center">
+						<div className="mt-5 mb-5 d-flex flex-wrap policyAndHelp justify-content-md-start justify-content-center align-items-center">
 							<div className="mr-md-5">
 								<Title className="text-center text-md-left" size="sm" variant="black">
 									Policies
@@ -62,7 +62,9 @@ const SellerRegistration: FC = () => {
 						<RegForm />
 					</FormContainer>
 				</Col>
+				
 			</Row>
+			
 		</RegistrationSection>
 	);
 };
@@ -88,6 +90,11 @@ const RegistrationSection = styled.section`
 	@media only screen and (max-width: 768px) {
 		.big-text{
 			font-size:3.5rem!important;
+		}
+	}
+	@media only screen and (max-width: 767px) {
+		.policyAndHelp{
+			display: none!important;
 		}
 	}
 
