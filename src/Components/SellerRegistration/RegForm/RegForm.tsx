@@ -84,18 +84,18 @@ const RegForm: FC = () => {
 		
 	};
 	const phoneVerification = () => {
-		let count =60;
+		let count =10;
+		const variable = null;
 		let timer = 2;
-		const setTime =() => {setInterval(function(){
+		const setTime = setInterval(function(){
 			count --;
-			if(count === 0){
-				
-				// clearInterval(setTime);
+			alert(count)
+			if(count <= 0){
+				clearInterval(setTime);
 				// return 0;
 			}
 			}, 1000);
-		}
-		// setTime();
+	
 	}
 
 	const proceedHandler = () => {
@@ -327,9 +327,21 @@ const RegForm: FC = () => {
 											onChange={handleFormValid}
 										/>
 
-										<h6 onClick={phoneVerification} className="my-auto" style={{ width: '30%', cursor: 'pointer' }}>
+										<button
+										onClick={phoneVerification}
+										className="my-auto" 
+										style={{
+											width: '30%',
+											cursor: 'pointer',
+											background: 'none',
+											border: 'none',
+											outline: 'none',
+											}}
+											// disabled
+										
+										>
 											Send Code
-										</h6>
+										</button>
 									</>
 								)}
 							</div>
