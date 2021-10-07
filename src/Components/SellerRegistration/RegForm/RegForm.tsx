@@ -38,15 +38,23 @@ const RegForm: FC = () => {
 		isSendCodeDisabled: false,
 	});
 
+	const checkErrors = errors.checkStartNumber 
+	
+console.log('cheking errors true or false',checkErrors)
+
 	const [userData, setUserData] = useState<User>({
 		store: '',
 		accountType: '',
 		productCategory: '',
 		phone: '',
-		smsVerification: 'xyz',
+		smsVerification: '',
 		password: '',
 		confirmPassword: '',
 	});
+
+
+	let isButtonDisabled = userData.store !== '' && userData.accountType !=='' && userData.password !=='' && userData.confirmPassword !== '' && userData.phone !== '' && userData.smsVerification !=='' && userData.productCategory !== '' && errors.isPassConfirmed && !(userData.password !== userData.confirmPassword) && errors.phone && errors.storeName;
+	
 
 	const signInHandler = () => {
 		setOldUser(true);
@@ -136,7 +144,7 @@ const RegForm: FC = () => {
 		console.log('submitted form successfully');
 	};
 
-	const handleFormValid = (e: ChangeEvent<HTMLInputElement>) => {
+	const handleFormValid = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
 		const inputName = e.target.name;
 		let isFieldValid = true;
 		let checkStartNumber;
@@ -144,17 +152,19 @@ const RegForm: FC = () => {
 
 		//store Name validation
 		if (inputName === 'storeName') {
+			const currentData = { ...userData };
 			if (value.length <= 0) {
 				const checkStoreName = { ...errors };
 				checkStoreName.storeName = false;
 				setErrors(checkStoreName);
 			} else {
+				currentData.store = value;
+				setUserData(currentData);
 				const checkStoreName = { ...errors };
 				checkStoreName.storeName = true;
 				setErrors(checkStoreName);
-				const currentData = { ...userData };
-				currentData.store = value;
-				setUserData(currentData);
+				
+				
 			}
 		}
 
@@ -193,6 +203,7 @@ const RegForm: FC = () => {
 
 		//password validation
 		if (inputName === 'password') {
+			
 			if(value.length === 0){
 			setIsInputEnable(false);
 			}
@@ -210,13 +221,8 @@ const RegForm: FC = () => {
 				passValid.password = false;
 				setErrors(passValid);
 			} else if (checkPassLength) {
-				if (!isPassHasNum) {
-					const passValid = { ...errors };
-					passValid.password = true;
-					passValid.isPassHasNum = false;
-					setErrors(passValid);
-				}
 				if (isPassHasNum) {
+					console.log(value);
 					const passValid = { ...errors };
 					passValid.isPassHasNum = true;
 					passValid.password = true;
@@ -225,6 +231,13 @@ const RegForm: FC = () => {
 					userPass.password = value;
 					setUserData(userPass);
 				}
+				if (!isPassHasNum) {
+					const passValid = { ...errors };
+					passValid.password = true;
+					passValid.isPassHasNum = false;
+					setErrors(passValid);
+				}
+				 
 			}
 		}
 		}
@@ -234,19 +247,50 @@ const RegForm: FC = () => {
 			const currentPassword = { ...userData };
 
 			if (currentPassword?.password === value && currentPassword.password.length !== 0) {
+
+
+				// isButtonDisabled = true;
 				const confirmPassword = { ...errors };
 				confirmPassword.isPassConfirmed = true;
 				setErrors(confirmPassword);
 				currentPassword.confirmPassword = value;
 				setUserData(currentPassword);
 			} else {
+
+				// isButtonDisabled = false
 				const confirmPassword = { ...errors };
 				confirmPassword.isPassConfirmed = false;
 				setErrors(confirmPassword);
 				console.log(false);
 				}
 		}
+
+		//sms verificationCode validation
+		if(inputName === 'smsVerification'){
+			const newUserData = { ...userData };
+			newUserData.smsVerification = value;
+			setUserData(newUserData);
+			// console.log(value);
+		}
+		// console.log(userData);
+		if(inputName === 'accountType'){
+			console.log(value);
+			const newUserData = { ...userData };
+			newUserData.accountType = value;
+			setUserData(newUserData);
+
+		}
+		if(inputName === 'productCategory'){
+			console.log(value);
+			const newUserData = { ...userData };
+			newUserData.productCategory = value;
+			setUserData(newUserData);
+
+		}
+
 	};
+	// console.log(userData);
+	console.log('is register button disabled',isButtonDisabled)
 	return (
 		<FormSection>
 			<Title style={{ fontSize: '1.3rem' }} className="text-left" variant="black" size="md">
@@ -296,11 +340,11 @@ const RegForm: FC = () => {
 					{isCreateAccount && (
 						<div className="my-3">
 							<FormLabel>Account Type</FormLabel>
-							<FormSelect className="px-3">
+							<FormSelect  onChange={handleFormValid} name="accountType" className="px-3">
 								<option selected disabled hidden>
 									select one
 								</option>
-								<option className="my-5">Business</option>
+								<option>Business</option>
 								<option>Individual</option>
 							</FormSelect>
 						</div>
@@ -308,7 +352,9 @@ const RegForm: FC = () => {
 					{isCreateAccount && (
 						<div className="my-3">
 							<FormLabel>Product category</FormLabel>
-							<FormSelect className="px-3">
+							<FormSelect name="productCategory" 
+							onChange={handleFormValid}
+							className="px-3">
 								<option selected disabled hidden>
 									select one
 								</option>
@@ -325,16 +371,17 @@ const RegForm: FC = () => {
 									borderRadius: '10px',
 									border: '1px solid #cbcbcb',
 								}}
-								className="d-flex justify-content-between align-items-center px-4"
+								className="d-flex justify-content-between align-items-center px-3"
 							>
-								<p style={{ width: '20%', borderRight: '1px solid gray' }}>+880</p>
+								<p style={{ width: '15%', borderRight: '1px solid gray' }}>+880</p>
 								{(isCreateAccount || isSendCode) && (
 									<>
 										<FormInput
-											style={{ border: 'none', width: '50%' }}
+											style={{ border: 'none', width: '55%' }}
 											type="number"
 											required
 											name="phoneNumber"
+											defaultValue={userData?.phone}
 											onChange={handleFormValid}
 										/>
 
@@ -349,6 +396,7 @@ const RegForm: FC = () => {
 											outline: 'none',
 											whiteSpace:'nowrap',
 											fontWeight: 500,
+											fontSize:'.8rem'
 											}}
 											disabled={isSendCodeDisabled || !errors.phone || userData.phone === '' || userData.phone.length === 0}
 										
@@ -374,11 +422,11 @@ const RegForm: FC = () => {
 					{(isCreateAccount || isSendCode) && (
 						<div style={{ borderRadius: '10px' }} className="mt-3 mb-4 d-flex align-items-center border">
 							<FormInput
-								style={{ border: 'none', width: '70%' }}
+								style={{ border: 'none', width: '80%' }}
 								placeholder="SMS Verification Code"
 								type="text"
 								required
-								name="verificationCode"
+								name="smsVerification"
 								onChange={handleFormValid}
 							/>
 							{isSendCode && <h6 style={{ cursor: 'pointer' }}>Send Again</h6>}
@@ -408,7 +456,7 @@ const RegForm: FC = () => {
 							{(errors?.isPassConfirmed && userData.password === userData.confirmPassword && userData.confirmPassword.length !== 0) ? (
 								<p className="text-success">Password matched</p>
 							) : (
-								<p className="text-danger">{(errors.isPassConfirmed === false && userData.password.length !==0) &&  `Password Didn't Matched`}</p>
+								<p className="text-danger">{((!errors.isPassConfirmed && userData.password.length !==0) || (userData.password !== userData.confirmPassword)) &&  `Password Didn't Matched` }</p>
 							)}
 						</div>
 					)}
@@ -440,7 +488,7 @@ const RegForm: FC = () => {
 								type="submit"
 								variant="black"
 								className="w-100"
-								disabled={true}
+								disabled={!isButtonDisabled}
 							>
 								{(oldUser && !isForgetPass && !isCreateAccount && `Sign In`) ||
 									(!oldUser && !isForgetPass && isCreateAccount && `Register`)}
