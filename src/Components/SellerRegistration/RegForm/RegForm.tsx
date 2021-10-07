@@ -2,6 +2,8 @@ import React, { ChangeEvent, FC, useState } from 'react';
 import styled from 'styled-components';
 import { passValidation } from '../../../helpers/passValidation';
 import { Button, Title } from '../../atoms';
+import ForgotPassword from '../../ForgotPassword/ForgotPassword';
+import SellerSignIn from '../../SellerSignIn/SellerSignIn';
 
 interface User {
 	store: string;
@@ -62,6 +64,7 @@ const RegForm: FC = () => {
 		errors.storeName;
 
 	const signInHandler = () => {
+		console.log('signInHandler')
 		setIsOldUser(true);
 		setNewUser(false);
 		setIsForgetPass(false);
@@ -79,7 +82,9 @@ const RegForm: FC = () => {
 		SetIsChangePass(false);
 	};
 
+	//forget password handler
 	const handleForgetPass = () => {
+		console.log('clicked handle forget pass')
 		setIsOldUser(false);
 		setNewUser(false);
 		setIsForgetPass(true);
@@ -239,7 +244,6 @@ const RegForm: FC = () => {
 				currentPassword.confirmPassword = value;
 				setUserData(currentPassword);
 			} else {
-				// isButtonDisabled = false
 				const confirmPassword = { ...errors };
 				confirmPassword.isPassConfirmed = false;
 				setErrors(confirmPassword);
@@ -250,9 +254,7 @@ const RegForm: FC = () => {
 			const newUserData = { ...userData };
 			newUserData.smsVerification = value;
 			setUserData(newUserData);
-			// console.log(value);
 		}
-		// console.log(userData);
 		if (inputName === 'accountType') {
 			console.log(value);
 			const newUserData = { ...userData };
@@ -436,65 +438,14 @@ const RegForm: FC = () => {
 				)}
 				{/* Old user form */}
 				{isOldUser && (
-					<form>
-						<div className="my-3">
-							<FormLabel>Phone Number</FormLabel>
-							<div
-								style={{
-									borderRadius: '10px',
-									border: '1px solid #cbcbcb',
-								}}
-							>
-								<FormInput
-									style={{ border: 'none', width: '55%' }}
-									type="number"
-									required
-									name="phoneNumber"
-									defaultValue={userData?.phone}
-								/>
-							</div>
-
-							{(errors.phone === false || errors.checkStartNumber === false) && (
-								<p className="text-danger">
-									{errors.checkStartNumber === false
-										? `Second digit must be 1`
-										: `Phone Number must be 11 digit!`}
-								</p>
-							)}
-						</div>
-
-						<div className="my-3">
-							<FormLabel>Password</FormLabel>
-							<FormInput type="password" required name="password" />
-
-							<p className="text-danger">
-								{(!errors.password && `Password Needs minimum 8 characters!`) ||
-									(!errors.isPassHasNum && `Your password must contain 1 number!`)}
-							</p>
-						</div>
-						<p
-							onClick={handleForgetPass}
-							style={{
-								textAlign: 'right',
-								color: '#999999',
-								cursor: 'pointer',
-							}}
-						>
-							Forgot Password
-						</p>
-						<div className="mt-3">
-							<Button
-								onClick={handleSendCode}
-								style={{ borderRadius: '10px' }}
-								variant="black"
-								className="w-100"
-								type="submit"
-							>
-								Sign In
-							</Button>
-						</div>
-					</form>
+					<SellerSignIn handleSignIn={handleForgetPass} />
 				)}
+				{
+				 isForgetPass && (
+						<ForgotPassword />
+					)
+				}
+
 			</div>
 		</FormSection>
 	);
@@ -507,7 +458,6 @@ const FormSection = styled.div`
 	border: 1px solid #ececec;
 	background-color: var(--white);
 	margin-left: 125px;
-
 	padding: 24px 30px;
 	@media only screen and (max-width: 425px) {
 		width: 95%;
