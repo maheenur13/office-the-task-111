@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { MouseEvent, MouseEventHandler, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '../atoms';
 
 const ForgotPassword = () => {
+    const [isSendCode , setIsSendCode] = useState(false);
+    const forgetPasswordHandler = (e:any) => {
+        console.log(e.target.value)
+        
+    }
+
 	return (
 		<div>
 			<form>
@@ -25,9 +31,13 @@ const ForgotPassword = () => {
 					<FormInput style={{ border: 'none' }} placeholder="Verification Code" />
 					<p className="pr-3" style={{ whiteSpace: 'nowrap',fontWeight: 500 }}>Send Again</p>
 				</div>
-
 				<div className="mt-3">
-					<Button style={{ borderRadius: '10px' }} variant="black" className="w-100">
+					<Button 
+                    style={{ borderRadius: '10px' }} 
+                    variant="black" 
+                    className="w-100"
+                    onClick={forgetPasswordHandler}
+                    >
 						Send Code
 					</Button>
 				</div>
