@@ -21,6 +21,8 @@ const RegForm: FC = () => {
 	const [isSendCode, SetIsSendCode] = useState(false);
 	const [isChangePass, SetIsChangePass] = useState(false);
 	const [isInputEnable , setIsInputEnable] = useState(false);
+	const [timer, setTimer] = useState<number>(20);
+   const [isSendCodeDisabled, setIsSendCodeDisabled] = useState(false);
 
 	const [errors, setErrors] = useState({
 		storeName: true,
@@ -32,6 +34,8 @@ const RegForm: FC = () => {
 		isPassEmpty: true,
 		isPassConfirmed: true,
 		isInputDisable:true,
+		isSetTimer:false,
+		isSendCodeDisabled: false,
 	});
 
 	const [userData, setUserData] = useState<User>({
@@ -39,7 +43,7 @@ const RegForm: FC = () => {
 		accountType: '',
 		productCategory: '',
 		phone: '',
-		smsVerification: '',
+		smsVerification: 'xyz',
 		password: '',
 		confirmPassword: '',
 	});
@@ -84,19 +88,26 @@ const RegForm: FC = () => {
 		
 	};
 	const phoneVerification = () => {
-		let count =10;
-		const variable = null;
-		let timer = 2;
+		let count = 19;
+		const newErrors = {...errors};
+		newErrors.isSetTimer = true;
+		setIsSendCodeDisabled(true)
+		setErrors(newErrors);
 		const setTime = setInterval(function(){
-			count --;
-			alert(count)
-			if(count <= 0){
+			console.log(count)
+			if(count <= -1){
+				setIsSendCodeDisabled(false)
+				newErrors.isSetTimer = false;
+				setErrors(newErrors);
 				clearInterval(setTime);
-				// return 0;
+			}
+			else {
+				setTimer(count--);
 			}
 			}, 1000);
 	
 	}
+	// console.log(timer)
 
 	const proceedHandler = () => {
 		SetIsProceed(true);
@@ -336,12 +347,17 @@ const RegForm: FC = () => {
 											background: 'none',
 											border: 'none',
 											outline: 'none',
+											whiteSpace:'nowrap',
+											fontWeight: 500,
 											}}
-											// disabled
+											disabled={isSendCodeDisabled || !errors.phone || userData.phone === '' || userData.phone.length === 0}
 										
 										>
 											Send Code
+											
 										</button>
+										{(errors.isSetTimer && timer > 0 ) &&<p>{`00:${(timer< 10 ? `0` :'')}${timer}`}</p>}
+										
 									</>
 								)}
 							</div>
