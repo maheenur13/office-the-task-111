@@ -14,15 +14,15 @@ interface User {
 }
 
 const RegForm: FC = () => {
-	const [oldUser, setOldUser] = useState(false);
+	const [isOldUser, setIsOldUser] = useState(false);
 	const [isForgetPass, setIsForgetPass] = useState(false);
-	const [isCreateAccount, setCreateAccount] = useState(true);
+	const [isNewUser, setNewUser] = useState(true);
 	const [isProceed, SetIsProceed] = useState(false);
 	const [isSendCode, SetIsSendCode] = useState(false);
 	const [isChangePass, SetIsChangePass] = useState(false);
-	const [isInputEnable , setIsInputEnable] = useState(false);
+	const [isInputEnable, setIsInputEnable] = useState(false);
 	const [timer, setTimer] = useState<number>(20);
-   const [isSendCodeDisabled, setIsSendCodeDisabled] = useState(false);
+	const [isSendCodeDisabled, setIsSendCodeDisabled] = useState(false);
 
 	const [errors, setErrors] = useState({
 		storeName: true,
@@ -33,14 +33,10 @@ const RegForm: FC = () => {
 		isPassHasNum: true,
 		isPassEmpty: true,
 		isPassConfirmed: true,
-		isInputDisable:true,
-		isSetTimer:false,
+		isInputDisable: true,
+		isSetTimer: false,
 		isSendCodeDisabled: false,
 	});
-
-	const checkErrors = errors.checkStartNumber 
-	
-console.log('cheking errors true or false',checkErrors)
 
 	const [userData, setUserData] = useState<User>({
 		store: '',
@@ -52,22 +48,31 @@ console.log('cheking errors true or false',checkErrors)
 		confirmPassword: '',
 	});
 
-
-	let isButtonDisabled = userData.store !== '' && userData.accountType !=='' && userData.password !=='' && userData.confirmPassword !== '' && userData.phone !== '' && userData.smsVerification !=='' && userData.productCategory !== '' && errors.isPassConfirmed && !(userData.password !== userData.confirmPassword) && errors.phone && errors.storeName;
-	
+	let isButtonDisabled =
+		userData.store !== '' &&
+		userData.accountType !== '' &&
+		userData.password !== '' &&
+		userData.confirmPassword !== '' &&
+		userData.phone !== '' &&
+		userData.smsVerification !== '' &&
+		userData.productCategory !== '' &&
+		errors.isPassConfirmed &&
+		!(userData.password !== userData.confirmPassword) &&
+		errors.phone &&
+		errors.storeName;
 
 	const signInHandler = () => {
-		setOldUser(true);
-		setCreateAccount(false);
+		setIsOldUser(true);
+		setNewUser(false);
 		setIsForgetPass(false);
 		SetIsProceed(false);
 		SetIsSendCode(false);
 		SetIsChangePass(false);
 	};
 
-	const createHandler = () => {
-		setOldUser(false);
-		setCreateAccount(true);
+	const registrationHandler = () => {
+		setIsOldUser(false);
+		setNewUser(true);
 		setIsForgetPass(false);
 		SetIsProceed(false);
 		SetIsSendCode(false);
@@ -75,8 +80,8 @@ console.log('cheking errors true or false',checkErrors)
 	};
 
 	const handleForgetPass = () => {
-		setOldUser(false);
-		setCreateAccount(false);
+		setIsOldUser(false);
+		setNewUser(false);
 		setIsForgetPass(true);
 		SetIsProceed(false);
 		SetIsSendCode(false);
@@ -84,43 +89,34 @@ console.log('cheking errors true or false',checkErrors)
 	};
 	const sendCodeHandler = () => {
 		SetIsSendCode(true);
-		setOldUser(false);
-		setCreateAccount(false);
+		setIsOldUser(false);
+		setNewUser(false);
 		setIsForgetPass(false);
 		SetIsProceed(false);
 		SetIsChangePass(false);
-
-
-		
-			
-		
 	};
 	const phoneVerification = () => {
 		let count = 19;
-		const newErrors = {...errors};
+		const newErrors = { ...errors };
 		newErrors.isSetTimer = true;
-		setIsSendCodeDisabled(true)
+		setIsSendCodeDisabled(true);
 		setErrors(newErrors);
-		const setTime = setInterval(function(){
-			console.log(count)
-			if(count <= -1){
-				setIsSendCodeDisabled(false)
+		const setTime = setInterval(function () {
+			console.log(count);
+			if (count <= -1) {
+				setIsSendCodeDisabled(false);
 				newErrors.isSetTimer = false;
 				setErrors(newErrors);
 				clearInterval(setTime);
-			}
-			else {
+			} else {
 				setTimer(count--);
 			}
-			}, 1000);
-	
-	}
-	// console.log(timer)
-
+		}, 1000);
+	};
 	const proceedHandler = () => {
 		SetIsProceed(true);
-		setOldUser(false);
-		setCreateAccount(false);
+		setIsOldUser(false);
+		setNewUser(false);
 		setIsForgetPass(false);
 		SetIsSendCode(false);
 		SetIsChangePass(false);
@@ -139,7 +135,6 @@ console.log('cheking errors true or false',checkErrors)
 		handleFormSubmit();
 		proceedHandler();
 	};
-
 	const handleFormSubmit = () => {
 		console.log('submitted form successfully');
 	};
@@ -163,11 +158,8 @@ console.log('cheking errors true or false',checkErrors)
 				const checkStoreName = { ...errors };
 				checkStoreName.storeName = true;
 				setErrors(checkStoreName);
-				
-				
 			}
 		}
-
 		//phone number validation
 		if (inputName === 'phoneNumber') {
 			if (value === '') {
@@ -200,55 +192,46 @@ console.log('cheking errors true or false',checkErrors)
 				}
 			}
 		}
-
 		//password validation
 		if (inputName === 'password') {
-			
-			if(value.length === 0){
-			setIsInputEnable(false);
+			if (value.length === 0) {
+				setIsInputEnable(false);
 			}
-			if(value.length > 0) {
+			if (value.length > 0) {
 				setIsInputEnable(true);
 				const isInputDisable = { ...errors };
 				isInputDisable.isInputDisable = false;
 				setErrors(isInputDisable);
-
-
-			const checkPassLength = passValidation(value.length);
-			const isPassHasNum = /\d{1}/.test(value);
-			if (!checkPassLength) {
-				const passValid = { ...errors };
-				passValid.password = false;
-				setErrors(passValid);
-			} else if (checkPassLength) {
-				if (isPassHasNum) {
-					console.log(value);
+				const checkPassLength = passValidation(value.length);
+				const isPassHasNum = /\d{1}/.test(value);
+				if (!checkPassLength) {
 					const passValid = { ...errors };
-					passValid.isPassHasNum = true;
-					passValid.password = true;
+					passValid.password = false;
 					setErrors(passValid);
-					const userPass = { ...userData };
-					userPass.password = value;
-					setUserData(userPass);
+				} else if (checkPassLength) {
+					if (isPassHasNum) {
+						console.log(value);
+						const passValid = { ...errors };
+						passValid.isPassHasNum = true;
+						passValid.password = true;
+						setErrors(passValid);
+						const userPass = { ...userData };
+						userPass.password = value;
+						setUserData(userPass);
+					}
+					if (!isPassHasNum) {
+						const passValid = { ...errors };
+						passValid.password = true;
+						passValid.isPassHasNum = false;
+						setErrors(passValid);
+					}
 				}
-				if (!isPassHasNum) {
-					const passValid = { ...errors };
-					passValid.password = true;
-					passValid.isPassHasNum = false;
-					setErrors(passValid);
-				}
-				 
 			}
 		}
-		}
-
 		//confirm password validation
 		if (inputName === 'confirmPassword') {
 			const currentPassword = { ...userData };
-
 			if (currentPassword?.password === value && currentPassword.password.length !== 0) {
-
-
 				// isButtonDisabled = true;
 				const confirmPassword = { ...errors };
 				confirmPassword.isPassConfirmed = true;
@@ -256,47 +239,39 @@ console.log('cheking errors true or false',checkErrors)
 				currentPassword.confirmPassword = value;
 				setUserData(currentPassword);
 			} else {
-
 				// isButtonDisabled = false
 				const confirmPassword = { ...errors };
 				confirmPassword.isPassConfirmed = false;
 				setErrors(confirmPassword);
-				console.log(false);
-				}
+			}
 		}
-
 		//sms verificationCode validation
-		if(inputName === 'smsVerification'){
+		if (inputName === 'smsVerification') {
 			const newUserData = { ...userData };
 			newUserData.smsVerification = value;
 			setUserData(newUserData);
 			// console.log(value);
 		}
 		// console.log(userData);
-		if(inputName === 'accountType'){
+		if (inputName === 'accountType') {
 			console.log(value);
 			const newUserData = { ...userData };
 			newUserData.accountType = value;
 			setUserData(newUserData);
-
 		}
-		if(inputName === 'productCategory'){
+		if (inputName === 'productCategory') {
 			console.log(value);
 			const newUserData = { ...userData };
 			newUserData.productCategory = value;
 			setUserData(newUserData);
-
 		}
-
 	};
-	// console.log(userData);
-	console.log('is register button disabled',isButtonDisabled)
 	return (
 		<FormSection>
 			<Title style={{ fontSize: '1.3rem' }} className="text-left" variant="black" size="md">
 				Seller Registration
 			</Title>
-			{((isCreateAccount && !oldUser) || isForgetPass || isSendCode || isProceed) && (
+			{((isNewUser && !isOldUser) || isForgetPass || isSendCode || isProceed) && (
 				<p onClick={signInHandler} className="my-3" style={{ cursor: 'pointer', fontSize: '.8rem' }}>
 					Already Have an account?
 					<span style={{ fontSize: '.8rem' }} className="text-primary">
@@ -305,9 +280,8 @@ console.log('cheking errors true or false',checkErrors)
 					</span>
 				</p>
 			)}
-
-			{oldUser && !isCreateAccount && (
-				<p onClick={createHandler} className="my-3" style={{ cursor: 'pointer', fontSize: '.8rem' }}>
+			{isOldUser && !isNewUser && (
+				<p onClick={registrationHandler} className="my-3" style={{ cursor: 'pointer', fontSize: '.8rem' }}>
 					New User?
 					<span style={{ fontSize: '.8rem' }} className="text-primary">
 						{' '}
@@ -316,31 +290,17 @@ console.log('cheking errors true or false',checkErrors)
 				</p>
 			)}
 			<div>
-				<form onSubmit={handleFormSubmit}>
-					{isCreateAccount && (
+				{/* reg form */}
+				{isNewUser && (
+					<form onSubmit={handleFormSubmit}>
 						<div className="my-3">
 							<FormLabel>Store Name</FormLabel>
 							<FormInput name="storeName" onChange={handleFormValid} type="text" required />
 							{!errors.storeName && <p className="text-danger">Please Write Your Store Name!</p>}
 						</div>
-					)}
-					{((oldUser && !isCreateAccount) || isForgetPass) && (
-						<div className="my-3">
-							<FormLabel>Phone Number</FormLabel>
-							<FormInput
-								placeholder="Phone Number"
-								type="number"
-								required
-								name="phoneNumber"
-								onChange={handleFormValid}
-							/>
-							{errors.phone === false && <p className="text-danger">Phone Number must be 11 digit.</p>}
-						</div>
-					)}
-					{isCreateAccount && (
 						<div className="my-3">
 							<FormLabel>Account Type</FormLabel>
-							<FormSelect  onChange={handleFormValid} name="accountType" className="px-3">
+							<FormSelect onChange={handleFormValid} name="accountType" className="px-3">
 								<option selected disabled hidden>
 									select one
 								</option>
@@ -348,13 +308,9 @@ console.log('cheking errors true or false',checkErrors)
 								<option>Individual</option>
 							</FormSelect>
 						</div>
-					)}
-					{isCreateAccount && (
 						<div className="my-3">
 							<FormLabel>Product category</FormLabel>
-							<FormSelect name="productCategory" 
-							onChange={handleFormValid}
-							className="px-3">
+							<FormSelect name="productCategory" onChange={handleFormValid} className="px-3">
 								<option selected disabled hidden>
 									select one
 								</option>
@@ -362,8 +318,6 @@ console.log('cheking errors true or false',checkErrors)
 								<option>Individual</option>
 							</FormSelect>
 						</div>
-					)}
-					{(isCreateAccount || isSendCode) && (
 						<div className="my-3">
 							<FormLabel>Phone Number</FormLabel>
 							<div
@@ -374,42 +328,40 @@ console.log('cheking errors true or false',checkErrors)
 								className="d-flex justify-content-between align-items-center px-3"
 							>
 								<p style={{ width: '15%', borderRight: '1px solid gray' }}>+880</p>
-								{(isCreateAccount || isSendCode) && (
-									<>
-										<FormInput
-											style={{ border: 'none', width: '55%' }}
-											type="number"
-											required
-											name="phoneNumber"
-											defaultValue={userData?.phone}
-											onChange={handleFormValid}
-										/>
-
-										<button
+								<>
+									<FormInput
+										style={{ border: 'none', width: '55%' }}
+										type="number"
+										required
+										name="phoneNumber"
+										defaultValue={userData?.phone}
+										onChange={handleFormValid}
+									/>
+									<button
 										onClick={phoneVerification}
-										className="my-auto" 
+										className="my-auto"
 										style={{
 											width: '30%',
 											cursor: 'pointer',
 											background: 'none',
 											border: 'none',
 											outline: 'none',
-											whiteSpace:'nowrap',
+											whiteSpace: 'nowrap',
 											fontWeight: 500,
-											fontSize:'.8rem'
-											}}
-											disabled={isSendCodeDisabled || !errors.phone || userData.phone === '' || userData.phone.length === 0}
-										
-										>
-											Send Code
-											
-										</button>
-										{(errors.isSetTimer && timer > 0 ) &&<p>{`00:${(timer< 10 ? `0` :'')}${timer}`}</p>}
-										
-									</>
-								)}
+											fontSize: '.8rem',
+										}}
+										disabled={
+											isSendCodeDisabled ||
+											!errors.phone ||
+											userData.phone === '' ||
+											userData.phone.length === 0
+										}
+									>
+										Send Code
+									</button>
+									{errors.isSetTimer && timer > 0 && <p>{`00:${timer < 10 ? `0` : ''}${timer}`}</p>}
+								</>
 							</div>
-
 							{(errors.phone === false || errors.checkStartNumber === false) && (
 								<p className="text-danger">
 									{errors.checkStartNumber === false
@@ -418,8 +370,6 @@ console.log('cheking errors true or false',checkErrors)
 								</p>
 							)}
 						</div>
-					)}
-					{(isCreateAccount || isSendCode) && (
 						<div style={{ borderRadius: '10px' }} className="mt-3 mb-4 d-flex align-items-center border">
 							<FormInput
 								style={{ border: 'none', width: '80%' }}
@@ -431,10 +381,8 @@ console.log('cheking errors true or false',checkErrors)
 							/>
 							{isSendCode && <h6 style={{ cursor: 'pointer' }}>Send Again</h6>}
 						</div>
-					)}
-					{((!isForgetPass && isCreateAccount) || isProceed || oldUser) && (
 						<div className="my-3">
-							<FormLabel>{isProceed && `New`} Password</FormLabel>
+							<FormLabel>Password</FormLabel>
 							<FormInput type="password" required name="password" onChange={handleFormValid} />
 							{(!errors.password || !errors.isPassHasNum) && (
 								<p className="text-danger">
@@ -443,24 +391,87 @@ console.log('cheking errors true or false',checkErrors)
 								</p>
 							)}
 						</div>
-					)}
-					{((!oldUser && !isForgetPass && isCreateAccount) || isProceed) && (
 						<div className="mt-4 mb-3">
 							<FormLabel>Confirm Password</FormLabel>
 							<FormInput
-							type="password"
-							onChange={handleFormValid} 
-							name="confirmPassword" 
-							disabled={!isInputEnable}
-							required />
-							{(errors?.isPassConfirmed && userData.password === userData.confirmPassword && userData.confirmPassword.length !== 0) ? (
+								type="password"
+								onChange={handleFormValid}
+								name="confirmPassword"
+								disabled={!isInputEnable}
+								required
+							/>
+							{errors?.isPassConfirmed &&
+							userData.password === userData.confirmPassword &&
+							userData.confirmPassword.length !== 0 ? (
 								<p className="text-success">Password matched</p>
 							) : (
-								<p className="text-danger">{((!errors.isPassConfirmed && userData.password.length !==0) || (userData.password !== userData.confirmPassword)) &&  `Password Didn't Matched` }</p>
+								<p className="text-danger">
+									{((!errors.isPassConfirmed && userData.password.length !== 0) ||
+										(userData.password !== userData.confirmPassword &&
+											userData.confirmPassword.length !== 0)) &&
+										`Password Didn't Matched`}
+								</p>
 							)}
 						</div>
-					)}
-					{oldUser && !isForgetPass && (
+						<div className="my-3 d-flex justify-content-between align-items-start">
+							<img className="mr-1" src="/images/info.svg" alt="info-icon" />
+							<p style={{ fontSize: '.75rem' }}>
+								{' '}
+								By continuing, you agree to zDrop's Conditions of Use and Privacy Policy.{' '}
+							</p>
+						</div>
+						<div className="mt-3">
+							<Button
+								style={{ borderRadius: '10px' }}
+								type="submit"
+								variant="black"
+								className="w-100"
+								disabled={!isButtonDisabled}
+							>
+								{(isOldUser && !isForgetPass && !isNewUser && `Sign In`) ||
+									(!isOldUser && !isForgetPass && isNewUser && `Register`)}
+							</Button>
+						</div>
+					</form>
+				)}
+				{/* Old user form */}
+				{isOldUser && (
+					<form>
+						<div className="my-3">
+							<FormLabel>Phone Number</FormLabel>
+							<div
+								style={{
+									borderRadius: '10px',
+									border: '1px solid #cbcbcb',
+								}}
+							>
+								<FormInput
+									style={{ border: 'none', width: '55%' }}
+									type="number"
+									required
+									name="phoneNumber"
+									defaultValue={userData?.phone}
+								/>
+							</div>
+
+							{(errors.phone === false || errors.checkStartNumber === false) && (
+								<p className="text-danger">
+									{errors.checkStartNumber === false
+										? `Second digit must be 1`
+										: `Phone Number must be 11 digit!`}
+								</p>
+							)}
+						</div>
+
+						<div className="my-3">
+							<FormLabel>Password</FormLabel>
+							<FormInput type="password" required name="password" />
+
+							<p className="text-danger">
+								{(!errors.password && `Password Needs minimum 8 characters!`) ||
+									(!errors.isPassHasNum && `Your password must contain 1 number!`)}
+							</p>
+						</div>
 						<p
 							onClick={handleForgetPass}
 							style={{
@@ -471,61 +482,19 @@ console.log('cheking errors true or false',checkErrors)
 						>
 							Forgot Password
 						</p>
-					)}
-					{isCreateAccount && (
-						<div className="my-3 d-flex justify-content-between align-items-start">
-							<img className="mr-1" src="/images/info.svg" alt="info-icon" />
-							<p style={{ fontSize: '.75rem' }}>
-								{' '}
-								By continuing, you agree to zDrop's Conditions of Use and Privacy Policy.{' '}
-							</p>
-						</div>
-					)}
-					<div className="mt-3">
-						{!isForgetPass && !isSendCode && !isProceed && (
-							<Button
-								style={{ borderRadius: '10px' }}
-								type="submit"
-								variant="black"
-								className="w-100"
-								disabled={!isButtonDisabled}
-							>
-								{(oldUser && !isForgetPass && !isCreateAccount && `Sign In`) ||
-									(!oldUser && !isForgetPass && isCreateAccount && `Register`)}
-							</Button>
-						)}
-						{isForgetPass && (
+						<div className="mt-3">
 							<Button
 								onClick={handleSendCode}
 								style={{ borderRadius: '10px' }}
 								variant="black"
 								className="w-100"
+								type="submit"
 							>
-								Send Code
+								Sign In
 							</Button>
-						)}
-						{isSendCode && (
-							<Button
-								onClick={handleProceed}
-								style={{ borderRadius: '10px' }}
-								variant="black"
-								className="w-100"
-							>
-								Proceed
-							</Button>
-						)}
-						{!isSendCode && isProceed && (
-							<Button
-								onClick={changePassHandler}
-								style={{ borderRadius: '10px' }}
-								variant="black"
-								className="w-100"
-							>
-								Change Password
-							</Button>
-						)}
-					</div>
-				</form>
+						</div>
+					</form>
+				)}
 			</div>
 		</FormSection>
 	);
@@ -579,7 +548,6 @@ const FormInput = styled.input`
 `;
 const FormLabel = styled.label`
 	display: block;
-	/* font-weigh5: bold; */
 	font-weight: 500;
 	font-size: 0.8rem;
 `;
