@@ -9,14 +9,16 @@ const ForgotPassword = ({ props }: any) => {
 	const [timer, setTimer] = props?.item3;
 	const [isSendCode, setIsSendCode] = useState(false);
 	const [phoneData, setPhoneData] = useState('');
-	const defaultValue= '1234';
+	const [isChangeNumberDisabled , setIsChangeNumberDisabled] = useState(true);
+	const defaultValue = '1234';
 	const forgetPasswordHandler = (e: any) => {
 		e.preventDefault();
 		setIsSendCode(true);
-		alert('form submitted');
-		console.log(e.target.value);
+		if(e.target.name === 'changeNumber'){
+			setIsChangeNumberDisabled(false)
+		}
 	};
-	const sendCodeVerification = (e: any) => {
+	const sendCodeVerification = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const newErrors = { ...errors };
 		const value = e.target.value;
 		if (e.target.name === 'phoneNumber') {
@@ -31,15 +33,13 @@ const ForgotPassword = ({ props }: any) => {
 				setErrors(newErrors);
 			}
 		}
-		if(e.target.name === 'verificationCode'){
-			if(value !== defaultValue){
-				
+		if (e.target.name === 'verificationCode') {
+			if (value !== defaultValue) {
 			}
-			if( value === defaultValue){
-
+			if (value === defaultValue) {
 			}
-
 		}
+		
 	};
 	const isButtonDisabled = errors.phone && phoneData.length !== 0;
 	return (
@@ -47,6 +47,7 @@ const ForgotPassword = ({ props }: any) => {
 			<div className="my-3">
 				<FormLabel>Phone Number</FormLabel>
 				<div
+					className="d-flex justify-content-between "
 					style={{
 						borderRadius: '10px',
 						border: '1px solid #cbcbcb',
@@ -58,7 +59,13 @@ const ForgotPassword = ({ props }: any) => {
 						onChange={sendCodeVerification}
 						required
 						name="phoneNumber"
+						disabled={isSendCode && isChangeNumberDisabled}
 					/>
+				{ isSendCode &&	<button className="mr-3"
+					onClick={forgetPasswordHandler} 
+					name="changeNumber" style={{ border: 'none', outline: 'none', background: 'none',fontWeight:500 }}>
+						Change
+					</button>}
 				</div>
 			</div>
 
@@ -93,7 +100,6 @@ const ForgotPassword = ({ props }: any) => {
 					>
 						Send Again
 					</button>
-					{console.log(errors.isSetTimer)}
 					{errors.isSetTimer && timer > 0 && <p className="pr-3">{`00:${timer < 10 ? `0` : ''}${timer}`}</p>}
 				</div>
 			)}
@@ -105,7 +111,7 @@ const ForgotPassword = ({ props }: any) => {
 					onClick={forgetPasswordHandler}
 					disabled={!isButtonDisabled}
 				>
-					Send Code
+					{isSendCode?`Proceed`:`Send Code`}
 				</Button>
 			</div>
 		</form>

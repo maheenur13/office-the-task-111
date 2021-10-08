@@ -33,3 +33,8 @@ setErrors(newErrors);
         }
     }, 1000);
 }
+
+export const phoneNumberValidation = () => {
+        
+
+}

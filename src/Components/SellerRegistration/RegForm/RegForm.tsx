@@ -92,16 +92,7 @@ const RegForm: FC = () => {
 		SetIsSendCode(false);
 		SetIsChangePass(false);
 	};
-	const sendCodeHandler = () => {
-		SetIsSendCode(true);
-		setIsOldUser(false);
-		setNewUser(false);
-		setIsForgetPass(false);
-		SetIsProceed(false);
-		SetIsChangePass(false);
-	};
 	const phoneVerification = () => {
-		// let count = 59;
 		const newErrors = { ...errors };
 		newErrors.isSetTimer = true;
 		setIsSendCodeDisabled(true);
@@ -112,28 +103,7 @@ const RegForm: FC = () => {
 			item3:[timer, setTimer]
 		})
 	};
-	const proceedHandler = () => {
-		SetIsProceed(true);
-		setIsOldUser(false);
-		setNewUser(false);
-		setIsForgetPass(false);
-		SetIsSendCode(false);
-		SetIsChangePass(false);
-	};
 
-	const changePassHandler = (e: any) => {
-		handleFormSubmit();
-		signInHandler();
-	};
-
-	const handleSendCode = (e: any) => {
-		handleFormSubmit();
-		sendCodeHandler();
-	};
-	const handleProceed = (e: any) => {
-		handleFormSubmit();
-		proceedHandler();
-	};
 	const handleFormSubmit = () => {
 		console.log('submitted form successfully');
 	};
@@ -166,8 +136,8 @@ const RegForm: FC = () => {
 				isPhoneValid.checkStartNumber = true;
 				setErrors(isPhoneValid);
 			} else {
-				checkStartNumber = /^[1-1][0-9]*$/.test(e.target.value);
-				isFieldValid = /^[0-9]{10}$/.test(e.target.value);
+				checkStartNumber = /^[0-0][0-9]*$/.test(e.target.value);
+				isFieldValid = /^[0-9]{11}$/.test(e.target.value);
 				if (checkStartNumber === false) {
 					const isPhoneValid = { ...errors };
 					isPhoneValid.checkStartNumber = false;
@@ -323,7 +293,7 @@ const RegForm: FC = () => {
 								}}
 								className="d-flex justify-content-between align-items-center px-3"
 							>
-								<p style={{ width: '15%', borderRight: '1px solid gray' }}>+880</p>
+								<p style={{ width: '15%', borderRight: '1px solid gray' }}>+88</p>
 								<>
 									<FormInput
 										style={{ border: 'none', width: '55%' }}
@@ -361,7 +331,7 @@ const RegForm: FC = () => {
 							{(errors.phone === false || errors.checkStartNumber === false) && (
 								<p className="text-danger">
 									{errors.checkStartNumber === false
-										? `Second digit must be 1`
+										? `Second digit must be 0`
 										: `Phone Number must be 11 digit!`}
 								</p>
 							)}
@@ -521,5 +491,4 @@ const FormSelect = styled.select`
 		}
 	}
 `;
-
 export default RegForm;
