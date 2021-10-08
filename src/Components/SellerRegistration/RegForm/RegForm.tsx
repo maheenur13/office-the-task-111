@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FC, useState } from 'react';
 import styled from 'styled-components';
-import { passValidation } from '../../../helpers/passValidation';
+import { passValidation, setTimeValidation } from '../../../helpers/passValidation';
 import { Button, Title } from '../../atoms';
 import ForgotPassword from '../../ForgotPassword/ForgotPassword';
 import SellerSignIn from '../../SellerSignIn/SellerSignIn';
@@ -23,7 +23,7 @@ const RegForm: FC = () => {
 	const [isSendCode, SetIsSendCode] = useState(false);
 	const [isChangePass, SetIsChangePass] = useState(false);
 	const [isInputEnable, setIsInputEnable] = useState(false);
-	const [timer, setTimer] = useState<number>(20);
+	const [timer, setTimer] = useState<number>(60);
 	const [isSendCodeDisabled, setIsSendCodeDisabled] = useState(false);
 
 	const [errors, setErrors] = useState({
@@ -101,22 +101,16 @@ const RegForm: FC = () => {
 		SetIsChangePass(false);
 	};
 	const phoneVerification = () => {
-		let count = 19;
+		// let count = 59;
 		const newErrors = { ...errors };
 		newErrors.isSetTimer = true;
 		setIsSendCodeDisabled(true);
 		setErrors(newErrors);
-		const setTime = setInterval(function () {
-			console.log(count);
-			if (count <= -1) {
-				setIsSendCodeDisabled(false);
-				newErrors.isSetTimer = false;
-				setErrors(newErrors);
-				clearInterval(setTime);
-			} else {
-				setTimer(count--);
-			}
-		}, 1000);
+		setTimeValidation({
+			item1: [isSendCodeDisabled, setIsSendCodeDisabled],
+			item2:[errors, setErrors],
+			item3:[timer, setTimer]
+		})
 	};
 	const proceedHandler = () => {
 		SetIsProceed(true);
@@ -442,7 +436,10 @@ const RegForm: FC = () => {
 				)}
 				{
 				 isForgetPass && (
-						<ForgotPassword />
+						<ForgotPassword props={{
+							item1: [isSendCodeDisabled, setIsSendCodeDisabled],
+							item2:[errors, setErrors],
+							item3:[timer, setTimer]}} />
 					)
 				}
 
