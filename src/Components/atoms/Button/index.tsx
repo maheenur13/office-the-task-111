@@ -10,5 +10,5 @@ Button.defaultProps = {
 };
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-	variant?: 'black' | 'white' | 'dark';
+	variant?: 'black' | 'white' | 'dark' | 'normal';
 }

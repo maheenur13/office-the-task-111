@@ -1,6 +1,6 @@
 import React, { MouseEvent, MouseEventHandler, useState } from 'react';
 import styled from 'styled-components';
-import { setTimeValidation } from '../../helpers/passValidation';
+import { setTimeValidation } from '../../helpers/formValidation';
 import { Button } from '../atoms';
 
 const ForgotPassword = ({ props }: any) => {
@@ -38,8 +38,7 @@ const ForgotPassword = ({ props }: any) => {
 			}
 			if (value === defaultValue) {
 			}
-		}
-		
+		}	
 	};
 	const isButtonDisabled = errors.phone && phoneData.length !== 0;
 	return (
@@ -148,5 +147,4 @@ const FormLabel = styled.label`
 	font-weight: 500;
 	font-size: 0.8rem;
 `;
-
 export default ForgotPassword;

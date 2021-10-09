@@ -7,7 +7,7 @@ import Selling from './Components/Selling/Selling';
 import SellOnZDrop from './Components/SellOnZDrop/SellOnZDrop';
 import Tools from './Components/Tools/Tools';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import SellerRegistration from './Components/SellerRegistration/SellerRegistration';
+import SellerRegistration from './Components/SellerRegistration/SellerRegistrationInfo';
 // import Demo from './Components/SellerRegistration/Demo';
 
 function App() {

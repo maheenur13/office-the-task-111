@@ -34,7 +34,7 @@ const isButtonDisabled = userData.phoneNumber !=='' && userData.password !== '';
 			newUserData.password = inputValue;
 			setUserData(newUserData);
 		}
-		// console.log(e.target.value);
+		
 	};
 	return (
 		<div>
